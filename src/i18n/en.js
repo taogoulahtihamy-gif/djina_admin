@@ -1125,6 +1125,74 @@ const en = {
       },
     },
 
+
+complaintDetails: {
+  back: 'Back to complaints',
+
+  common: {
+    customer: 'Customer',
+    course: 'Ride',
+    status: 'Status',
+  },
+
+  status: {
+    pending: 'Pending',
+    resolved: 'Resolved',
+    rejected: 'Rejected',
+  },
+
+  summary: {
+    complaintNumber: 'Complaint #{{id}}',
+    registered: 'Complaint registered on Djina.',
+  },
+
+  customer: {
+    title: 'Customer',
+    subtitle: 'Requester information',
+    name: 'Name',
+    phone: 'Phone',
+    email: 'Email',
+    defaultName: 'Customer',
+  },
+
+  course: {
+    title: 'Associated ride',
+    subtitle: 'Ride concerned by the complaint',
+    view: 'View ride',
+  },
+
+  description: {
+    title: 'Description',
+    subtitle: 'Reason provided by the customer',
+    empty: 'No description.',
+  },
+
+  dates: {
+    title: 'Dates',
+    subtitle: 'Complaint history',
+    created: 'Created on',
+    resolved: 'Resolved on',
+    updated: 'Updated on',
+  },
+
+  resolution: {
+    title: 'Resolution',
+    subtitle: 'Handled by the administration',
+    resolvedBy: 'Resolved by',
+    note: 'Resolution note',
+    noNote: 'No resolution note.',
+    administrator: 'Administrator',
+    admin: 'Administrator',
+    superAdmin: 'Super Admin',
+  },
+
+  errors: {
+    load: 'Unable to load this complaint.',
+    notFound: 'Complaint not found',
+  },
+},
+
+
     complaintDetails: {
       back: 'Back to complaints',
       complaintNumber:

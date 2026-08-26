@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import {
   ArrowLeft,
   CalendarDays,
@@ -9,121 +10,136 @@ import {
   UserRound,
 } from 'lucide-react'
 
-import {
-  getComplaintById,
-} from '../services/complaintService'
-
-import {
-  getCustomers,
-} from '../services/customerService'
-
+import { getComplaintById } from '../services/complaintService'
+import { getCustomers } from '../services/customerService'
 import Spinner from '../components/Spinner'
-
-const STATUS_LABELS = {
-  pending: 'En attente',
-  resolved: 'Résolue',
-  rejected: 'Rejetée',
-}
-
-function formatDate(value) {
-  if (!value) return '—'
-
-  const date = new Date(value)
-
-  if (Number.isNaN(date.getTime())) {
-    return '—'
-  }
-
-  return new Intl.DateTimeFormat('fr-FR', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(date)
-}
-
-function formatCourseId(id) {
-  if (!id) return '—'
-
-  return `DJ-${String(id).padStart(5, '0')}`
-}
-
-function getCustomerName(customer) {
-  if (!customer) {
-    return 'Client'
-  }
-
-  return (
-    [
-      customer.user?.first_name,
-      customer.user?.last_name,
-    ]
-      .filter(Boolean)
-      .join(' ') || 'Client'
-  )
-}
-
-function getAdministratorName(complaint) {
-  const administrator =
-    complaint?.resolved_by_user
-
-  if (!administrator) {
-    return '—'
-  }
-
-  const fullName = [
-    administrator.first_name,
-    administrator.last_name,
-  ]
-    .filter(Boolean)
-    .join(' ')
-    .trim()
-
-  return (
-    fullName ||
-    administrator.email ||
-    'Administrateur'
-  )
-}
-
-function getAdministratorRole(complaint) {
-  const administrator =
-    complaint?.resolved_by_user
-
-  if (!administrator) {
-    return ''
-  }
-
-  if (administrator.is_superuser) {
-    return 'Super Admin'
-  }
-
-  if (
-    administrator.user_type === 'admin' ||
-    administrator.is_staff
-  ) {
-    return 'Administrateur'
-  }
-
-  return ''
-}
 
 function ComplaintDetails() {
   const { complaintId } = useParams()
   const navigate = useNavigate()
+  const { t, i18n } = useTranslation()
 
-  const [complaint, setComplaint] =
-    useState(null)
+  const [complaint, setComplaint] = useState(null)
+  const [customer, setCustomer] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState('')
 
-  const [customer, setCustomer] =
-    useState(null)
+  const getStatusLabel = (status) => {
+    const labels = {
+      pending: t('complaintDetails.status.pending'),
+      resolved: t('complaintDetails.status.resolved'),
+      rejected: t('complaintDetails.status.rejected'),
+    }
 
-  const [isLoading, setIsLoading] =
-    useState(true)
+    return labels[status] || status || '—'
+  }
 
-  const [error, setError] =
-    useState('')
+  const getLocale = () => {
+    if (i18n.language?.startsWith('ar')) {
+      return 'ar'
+    }
+
+    if (i18n.language?.startsWith('en')) {
+      return 'en-US'
+    }
+
+    return 'fr-FR'
+  }
+
+  const formatDate = (value) => {
+    if (!value) {
+      return '—'
+    }
+
+    const date = new Date(value)
+
+    if (Number.isNaN(date.getTime())) {
+      return '—'
+    }
+
+    return new Intl.DateTimeFormat(
+      getLocale(),
+      {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      },
+    ).format(date)
+  }
+
+  const formatCourseId = (id) => {
+    if (!id) {
+      return '—'
+    }
+
+    return `DJ-${String(id).padStart(5, '0')}`
+  }
+
+  const getCustomerName = (customerData) => {
+    if (!customerData) {
+      return t('complaintDetails.customer.defaultName')
+    }
+
+    return (
+      [
+        customerData.user?.first_name,
+        customerData.user?.last_name,
+      ]
+        .filter(Boolean)
+        .join(' ') ||
+      t('complaintDetails.customer.defaultName')
+    )
+  }
+
+  const getAdministratorName = () => {
+    const administrator =
+      complaint?.resolved_by_user
+
+    if (!administrator) {
+      return '—'
+    }
+
+    const fullName = [
+      administrator.first_name,
+      administrator.last_name,
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .trim()
+
+    return (
+      fullName ||
+      t('complaintDetails.resolution.administrator')
+    )
+  }
+
+  const getAdministratorRole = () => {
+    const administrator =
+      complaint?.resolved_by_user
+
+    if (!administrator) {
+      return ''
+    }
+
+    if (administrator.is_superuser) {
+      return t(
+        'complaintDetails.resolution.superAdmin',
+      )
+    }
+
+    if (
+      administrator.user_type === 'admin' ||
+      administrator.is_staff
+    ) {
+      return t(
+        'complaintDetails.resolution.admin',
+      )
+    }
+
+    return ''
+  }
 
   useEffect(() => {
     const loadComplaint = async () => {
@@ -132,50 +148,37 @@ function ComplaintDetails() {
         setError('')
 
         const complaintData =
-          await getComplaintById(
-            complaintId,
-          )
+          await getComplaintById(complaintId)
 
-        setComplaint(
-          complaintData,
-        )
+        setComplaint(complaintData)
 
         try {
           const customersData =
             await getCustomers()
 
           const customers =
-            Array.isArray(
-              customersData,
-            )
+            Array.isArray(customersData)
               ? customersData
-              : customersData?.results ??
-                []
+              : customersData?.results ?? []
 
           const relatedCustomer =
             customers.find(
               (item) =>
-                item.id ===
-                complaintData.customer,
+                item.id === complaintData.customer,
             )
 
           setCustomer(
             relatedCustomer || null,
           )
-        } catch (
-          customerError
-        ) {
-          console.error(
-            customerError,
-          )
-
+        } catch (customerError) {
+          console.error(customerError)
           setCustomer(null)
         }
-      } catch (err) {
-        console.error(err)
+      } catch (requestError) {
+        console.error(requestError)
 
         setError(
-          'Impossible de charger cette réclamation.',
+          t('complaintDetails.errors.load'),
         )
       } finally {
         setIsLoading(false)
@@ -183,7 +186,7 @@ function ComplaintDetails() {
     }
 
     loadComplaint()
-  }, [complaintId])
+  }, [complaintId, t])
 
   if (isLoading) {
     return (
@@ -202,18 +205,17 @@ function ComplaintDetails() {
           type="button"
           className="complaint-back-link"
           onClick={() =>
-            navigate(
-              '/admin/complaints',
-            )
+            navigate('/admin/complaints')
           }
         >
           <ArrowLeft size={17} />
-          Retour aux réclamations
+
+          {t('complaintDetails.back')}
         </button>
 
         <div className="complaints-table-state is-error">
           <strong>
-            Réclamation introuvable
+            {t('complaintDetails.errors.notFound')}
           </strong>
 
           <p>{error}</p>
@@ -226,14 +228,10 @@ function ComplaintDetails() {
     getCustomerName(customer)
 
   const administratorName =
-    getAdministratorName(
-      complaint,
-    )
+    getAdministratorName()
 
   const administratorRole =
-    getAdministratorRole(
-      complaint,
-    )
+    getAdministratorRole()
 
   return (
     <section className="complaint-details-page">
@@ -242,37 +240,35 @@ function ComplaintDetails() {
           type="button"
           className="complaint-back-link"
           onClick={() =>
-            navigate(
-              '/admin/complaints',
-            )
+            navigate('/admin/complaints')
           }
         >
           <ArrowLeft size={17} />
 
-          Retour aux réclamations
+          {t('complaintDetails.back')}
         </button>
 
         <span
           className={`complaint-status-badge status-${complaint.status}`}
         >
-          {STATUS_LABELS[
-            complaint.status
-          ] || complaint.status}
+          {getStatusLabel(complaint.status)}
         </span>
       </div>
 
       <section className="complaint-summary-card">
         <div className="complaint-summary-identity">
           <span className="complaint-summary-icon">
-            <MessageSquareWarning
-              size={23}
-            />
+            <MessageSquareWarning size={23} />
           </span>
 
           <div>
             <span className="complaint-summary-label">
-              Réclamation #
-              {complaint.id}
+              {t(
+                'complaintDetails.summary.complaintNumber',
+                {
+                  id: complaint.id,
+                },
+              )}
             </span>
 
             <h2>
@@ -282,15 +278,20 @@ function ComplaintDetails() {
             </h2>
 
             <p>
-              Réclamation enregistrée
-              sur Djina.
+              {t(
+                'complaintDetails.summary.registered',
+              )}
             </p>
           </div>
         </div>
 
         <div className="complaint-summary-metrics">
           <div>
-            <span>Client</span>
+            <span>
+              {t(
+                'complaintDetails.common.customer',
+              )}
+            </span>
 
             <strong>
               {customerName}
@@ -298,7 +299,11 @@ function ComplaintDetails() {
           </div>
 
           <div>
-            <span>Course</span>
+            <span>
+              {t(
+                'complaintDetails.common.course',
+              )}
+            </span>
 
             <strong>
               {formatCourseId(
@@ -308,12 +313,16 @@ function ComplaintDetails() {
           </div>
 
           <div>
-            <span>Statut</span>
+            <span>
+              {t(
+                'complaintDetails.common.status',
+              )}
+            </span>
 
             <strong>
-              {STATUS_LABELS[
-                complaint.status
-              ] || complaint.status}
+              {getStatusLabel(
+                complaint.status,
+              )}
             </strong>
           </div>
         </div>
@@ -326,18 +335,27 @@ function ComplaintDetails() {
             <UserRound size={18} />
 
             <div>
-              <h3>Client</h3>
+              <h3>
+                {t(
+                  'complaintDetails.customer.title',
+                )}
+              </h3>
 
               <p>
-                Informations du
-                demandeur
+                {t(
+                  'complaintDetails.customer.subtitle',
+                )}
               </p>
             </div>
           </div>
 
           <div className="complaint-detail-list">
             <div>
-              <span>Nom</span>
+              <span>
+                {t(
+                  'complaintDetails.customer.name',
+                )}
+              </span>
 
               <strong>
                 {customerName}
@@ -345,7 +363,11 @@ function ComplaintDetails() {
             </div>
 
             <div>
-              <span>Client</span>
+              <span>
+                {t(
+                  'complaintDetails.common.customer',
+                )}
+              </span>
 
               <strong>
                 #
@@ -356,20 +378,26 @@ function ComplaintDetails() {
             </div>
 
             <div>
-              <span>Téléphone</span>
+              <span>
+                {t(
+                  'complaintDetails.customer.phone',
+                )}
+              </span>
 
               <strong>
-                {customer?.user
-                  ?.phone || '—'}
+                {customer?.user?.phone || '—'}
               </strong>
             </div>
 
             <div>
-              <span>E-mail</span>
+              <span>
+                {t(
+                  'complaintDetails.customer.email',
+                )}
+              </span>
 
               <strong>
-                {customer?.user
-                  ?.email || '—'}
+                {customer?.user?.email || '—'}
               </strong>
             </div>
           </div>
@@ -381,19 +409,26 @@ function ComplaintDetails() {
 
             <div>
               <h3>
-                Course associée
+                {t(
+                  'complaintDetails.course.title',
+                )}
               </h3>
 
               <p>
-                Course concernée par
-                la réclamation
+                {t(
+                  'complaintDetails.course.subtitle',
+                )}
               </p>
             </div>
           </div>
 
           <div className="complaint-course-module">
             <div>
-              <span>Course</span>
+              <span>
+                {t(
+                  'complaintDetails.common.course',
+                )}
+              </span>
 
               <strong>
                 {formatCourseId(
@@ -410,52 +445,66 @@ function ComplaintDetails() {
                 )
               }
             >
-              Voir la course
+              {t(
+                'complaintDetails.course.view',
+              )}
             </button>
           </div>
         </section>
 
         <section className="complaint-detail-card complaint-description-card">
           <div className="complaint-detail-card-heading">
-            <MessageSquareWarning
-              size={18}
-            />
+            <MessageSquareWarning size={18} />
 
             <div>
-              <h3>Description</h3>
+              <h3>
+                {t(
+                  'complaintDetails.description.title',
+                )}
+              </h3>
 
               <p>
-                Motif déclaré par le
-                client
+                {t(
+                  'complaintDetails.description.subtitle',
+                )}
               </p>
             </div>
           </div>
 
           <div className="complaint-description-full">
             {complaint.description ||
-              'Aucune description.'}
+              t(
+                'complaintDetails.description.empty',
+              )}
           </div>
         </section>
 
         <section className="complaint-detail-card">
           <div className="complaint-detail-card-heading">
-            <CalendarDays
-              size={18}
-            />
+            <CalendarDays size={18} />
 
             <div>
-              <h3>Dates</h3>
+              <h3>
+                {t(
+                  'complaintDetails.dates.title',
+                )}
+              </h3>
 
               <p>
-                Historique de la
-                réclamation
+                {t(
+                  'complaintDetails.dates.subtitle',
+                )}
               </p>
             </div>
           </div>
 
           <div className="complaint-detail-list">
             <div>
-              <span>Créée le</span>
+              <span>
+                {t(
+                  'complaintDetails.dates.created',
+                )}
+              </span>
 
               <strong>
                 {formatDate(
@@ -465,7 +514,11 @@ function ComplaintDetails() {
             </div>
 
             <div>
-              <span>Résolue le</span>
+              <span>
+                {t(
+                  'complaintDetails.dates.resolved',
+                )}
+              </span>
 
               <strong>
                 {formatDate(
@@ -476,7 +529,9 @@ function ComplaintDetails() {
 
             <div>
               <span>
-                Mise à jour le
+                {t(
+                  'complaintDetails.dates.updated',
+                )}
               </span>
 
               <strong>
@@ -490,35 +545,43 @@ function ComplaintDetails() {
 
         <section className="complaint-detail-card complaint-resolution-card">
           <div className="complaint-detail-card-heading">
-            <CheckCircle2
-              size={18}
-            />
+            <CheckCircle2 size={18} />
 
             <div>
-              <h3>Résolution</h3>
+              <h3>
+                {t(
+                  'complaintDetails.resolution.title',
+                )}
+              </h3>
 
               <p>
-                Traitement effectué
-                par l’administration
+                {t(
+                  'complaintDetails.resolution.subtitle',
+                )}
               </p>
             </div>
           </div>
 
           <div className="complaint-detail-list">
             <div>
-              <span>Statut</span>
+              <span>
+                {t(
+                  'complaintDetails.common.status',
+                )}
+              </span>
 
               <strong>
-                {STATUS_LABELS[
-                  complaint.status
-                ] ||
-                  complaint.status}
+                {getStatusLabel(
+                  complaint.status,
+                )}
               </strong>
             </div>
 
             <div>
               <span>
-                Résolu par
+                {t(
+                  'complaintDetails.resolution.resolvedBy',
+                )}
               </span>
 
               <div className="complaint-resolver">
@@ -537,12 +600,16 @@ function ComplaintDetails() {
 
           <div className="complaint-resolution-note">
             <span>
-              Note de résolution
+              {t(
+                'complaintDetails.resolution.note',
+              )}
             </span>
 
             <p>
               {complaint.resolution_note ||
-                'Aucune note de résolution.'}
+                t(
+                  'complaintDetails.resolution.noNote',
+                )}
             </p>
           </div>
         </section>

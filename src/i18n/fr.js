@@ -1145,6 +1145,75 @@ const fr = {
       },
     },
 
+
+
+complaintDetails: {
+  back: 'Retour aux réclamations',
+
+  common: {
+    customer: 'Client',
+    course: 'Course',
+    status: 'Statut',
+  },
+
+  status: {
+    pending: 'En attente',
+    resolved: 'Résolue',
+    rejected: 'Rejetée',
+  },
+
+  summary: {
+    complaintNumber: 'Réclamation #{{id}}',
+    registered: 'Réclamation enregistrée sur Djina.',
+  },
+
+  customer: {
+    title: 'Client',
+    subtitle: 'Informations du demandeur',
+    name: 'Nom',
+    phone: 'Téléphone',
+    email: 'E-mail',
+    defaultName: 'Client',
+  },
+
+  course: {
+    title: 'Course associée',
+    subtitle: 'Course concernée par la réclamation',
+    view: 'Voir la course',
+  },
+
+  description: {
+    title: 'Description',
+    subtitle: 'Motif déclaré par le client',
+    empty: 'Aucune description.',
+  },
+
+  dates: {
+    title: 'Dates',
+    subtitle: 'Historique de la réclamation',
+    created: 'Créée le',
+    resolved: 'Résolue le',
+    updated: 'Mise à jour le',
+  },
+
+  resolution: {
+    title: 'Résolution',
+    subtitle: "Traitement effectué par l'administration",
+    resolvedBy: 'Résolu par',
+    note: 'Note de résolution',
+    noNote: 'Aucune note de résolution.',
+    administrator: 'Administrateur',
+    admin: 'Administrateur',
+    superAdmin: 'Super Admin',
+  },
+
+  errors: {
+    load: 'Impossible de charger cette réclamation.',
+    notFound: 'Réclamation introuvable',
+  },
+},
+
+
     complaintDetails: {
       back:
         'Retour aux réclamations',

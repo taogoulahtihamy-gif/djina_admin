@@ -1128,6 +1128,75 @@ const ar = {
       },
     },
 
+
+
+complaintDetails: {
+  back: 'العودة إلى الشكاوى',
+
+  common: {
+    customer: 'العميل',
+    course: 'الرحلة',
+    status: 'الحالة',
+  },
+
+  status: {
+    pending: 'قيد الانتظار',
+    resolved: 'تم الحل',
+    rejected: 'مرفوضة',
+  },
+
+  summary: {
+    complaintNumber: 'الشكوى رقم {{id}}',
+    registered: 'شكوى مسجلة على منصة Djina.',
+  },
+
+  customer: {
+    title: 'العميل',
+    subtitle: 'معلومات مقدم الشكوى',
+    name: 'الاسم',
+    phone: 'الهاتف',
+    email: 'البريد الإلكتروني',
+    defaultName: 'العميل',
+  },
+
+  course: {
+    title: 'الرحلة المرتبطة',
+    subtitle: 'الرحلة المعنية بالشكوى',
+    view: 'عرض الرحلة',
+  },
+
+  description: {
+    title: 'الوصف',
+    subtitle: 'السبب المقدم من العميل',
+    empty: 'لا يوجد وصف.',
+  },
+
+  dates: {
+    title: 'التواريخ',
+    subtitle: 'سجل الشكوى',
+    created: 'تاريخ الإنشاء',
+    resolved: 'تاريخ الحل',
+    updated: 'آخر تحديث',
+  },
+
+  resolution: {
+    title: 'الحل',
+    subtitle: 'تمت معالجة الشكوى من قبل الإدارة',
+    resolvedBy: 'تم الحل بواسطة',
+    note: 'ملاحظة الحل',
+    noNote: 'لا توجد ملاحظة للحل.',
+    administrator: 'مسؤول',
+    admin: 'مسؤول',
+    superAdmin: 'المسؤول الرئيسي',
+  },
+
+  errors: {
+    load: 'تعذر تحميل هذه الشكوى.',
+    notFound: 'لم يتم العثور على الشكوى',
+  },
+},
+
+
     complaintDetails: {
       back:
         'العودة إلى الشكاوى',
