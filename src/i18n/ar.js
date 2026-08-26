@@ -1131,7 +1131,14 @@ const ar = {
 
 
 complaintDetails: {
-  back: 'العودة إلى الشكاوى',
+  back:
+    'العودة إلى الشكاوى',
+
+  complaintNumber:
+    'الشكوى رقم {{id}}',
+
+  profileDescription:
+    'شكوى مسجلة على منصة Djina.',
 
   common: {
     customer: 'العميل',
@@ -1140,133 +1147,158 @@ complaintDetails: {
   },
 
   status: {
-    pending: 'قيد الانتظار',
-    resolved: 'تم الحل',
-    rejected: 'مرفوضة',
+    pending:
+      'قيد الانتظار',
+
+    resolved:
+      'تم الحل',
+
+    rejected:
+      'مرفوضة',
   },
 
   summary: {
-    complaintNumber: 'الشكوى رقم {{id}}',
-    registered: 'شكوى مسجلة على منصة Djina.',
+    complaintNumber:
+      'الشكوى رقم {{id}}',
+
+    registered:
+      'شكوى مسجلة على منصة Djina.',
+
+    customer:
+      'العميل',
+
+    course:
+      'الرحلة',
+
+    status:
+      'الحالة',
   },
 
   customer: {
-    title: 'العميل',
-    subtitle: 'معلومات مقدم الشكوى',
-    name: 'الاسم',
-    phone: 'الهاتف',
-    email: 'البريد الإلكتروني',
-    defaultName: 'العميل',
+    title:
+      'العميل',
+
+    subtitle:
+      'معلومات مقدم الشكوى',
+
+    description:
+      'معلومات مقدم الشكوى',
+
+    name:
+      'الاسم',
+
+    phone:
+      'الهاتف',
+
+    email:
+      'البريد الإلكتروني',
+
+    defaultName:
+      'العميل',
+  },
+
+  fields: {
+    name:
+      'الاسم',
+
+    customer:
+      'العميل',
+
+    phone:
+      'الهاتف',
+
+    email:
+      'البريد الإلكتروني',
   },
 
   course: {
-    title: 'الرحلة المرتبطة',
-    subtitle: 'الرحلة المعنية بالشكوى',
-    view: 'عرض الرحلة',
+    title:
+      'الرحلة المرتبطة',
+
+    subtitle:
+      'الرحلة المعنية بالشكوى',
+
+    description:
+      'الرحلة المعنية بالشكوى',
+
+    view:
+      'عرض الرحلة',
   },
 
   description: {
-    title: 'الوصف',
-    subtitle: 'السبب المقدم من العميل',
-    empty: 'لا يوجد وصف.',
+    title:
+      'الوصف',
+
+    subtitle:
+      'السبب المقدم من العميل',
+
+    description:
+      'السبب الذي ذكره العميل',
+
+    empty:
+      'لا يوجد وصف.',
   },
 
   dates: {
-    title: 'التواريخ',
-    subtitle: 'سجل الشكوى',
-    created: 'تاريخ الإنشاء',
-    resolved: 'تاريخ الحل',
-    updated: 'آخر تحديث',
+    title:
+      'التواريخ',
+
+    subtitle:
+      'سجل الشكوى',
+
+    description:
+      'سجل الشكوى',
+
+    created:
+      'تاريخ الإنشاء',
+
+    resolved:
+      'تاريخ الحل',
+
+    updated:
+      'آخر تحديث',
   },
 
   resolution: {
-    title: 'الحل',
-    subtitle: 'تمت معالجة الشكوى من قبل الإدارة',
-    resolvedBy: 'تم الحل بواسطة',
-    note: 'ملاحظة الحل',
-    noNote: 'لا توجد ملاحظة للحل.',
-    administrator: 'مسؤول',
-    admin: 'مسؤول',
-    superAdmin: 'المسؤول الرئيسي',
+    title:
+      'الحل',
+
+    subtitle:
+      'تمت معالجة الشكوى من قبل الإدارة',
+
+    description:
+      'المعالجة التي قامت بها الإدارة',
+
+    resolvedBy:
+      'تم الحل بواسطة',
+
+    note:
+      'ملاحظة الحل',
+
+    noNote:
+      'لا توجد ملاحظة للحل.',
+
+    administrator:
+      'مسؤول',
+
+    admin:
+      'مسؤول',
+
+    superAdmin:
+      'المسؤول الرئيسي',
+
+    administratorNumber:
+      'المسؤول رقم {{id}}',
   },
 
   errors: {
-    load: 'تعذر تحميل هذه الشكوى.',
-    notFound: 'لم يتم العثور على الشكوى',
+    load:
+      'تعذر تحميل هذه الشكوى.',
+
+    notFound:
+      'لم يتم العثور على الشكوى',
   },
 },
-
-
-    complaintDetails: {
-      back:
-        'العودة إلى الشكاوى',
-      complaintNumber:
-        'الشكوى #{{id}}',
-      profileDescription:
-        'شكوى مسجلة على Djina.',
-
-      errors: {
-        load:
-          'تعذر تحميل هذه الشكوى.',
-        notFound:
-          'الشكوى غير موجودة',
-      },
-
-      summary: {
-        customer: 'العميل',
-        course: 'الرحلة',
-        status: 'الحالة',
-      },
-
-      customer: {
-        title: 'العميل',
-        description:
-          'معلومات صاحب الطلب',
-      },
-
-      fields: {
-        name: 'الاسم',
-        customer: 'العميل',
-        phone: 'الهاتف',
-        email: 'البريد الإلكتروني',
-      },
-
-      course: {
-        title: 'الرحلة المرتبطة',
-        description:
-          'الرحلة المعنية بالشكوى',
-        view: 'عرض الرحلة',
-      },
-
-      description: {
-        title: 'الوصف',
-        description:
-          'السبب الذي ذكره العميل',
-        empty: 'لا يوجد وصف.',
-      },
-
-      dates: {
-        title: 'التواريخ',
-        description:
-          'سجل الشكوى',
-        created: 'تاريخ الإنشاء',
-        resolved: 'تاريخ الحل',
-        updated: 'آخر تحديث',
-      },
-
-      resolution: {
-        title: 'الحل',
-        description:
-          'المعالجة التي قامت بها الإدارة',
-        resolvedBy:
-          'تم الحل بواسطة',
-        administratorNumber:
-          'المسؤول #{{id}}',
-        note: 'ملاحظة الحل',
-        noNote:
-          'لا توجد ملاحظة للحل.',
-      },
-    },
   },
 }
 

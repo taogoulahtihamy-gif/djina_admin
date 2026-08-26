@@ -1129,6 +1129,12 @@ const en = {
 complaintDetails: {
   back: 'Back to complaints',
 
+  complaintNumber:
+    'Complaint #{{id}}',
+
+  profileDescription:
+    'Complaint registered on Djina.',
+
   common: {
     customer: 'Customer',
     course: 'Ride',
@@ -1142,125 +1148,125 @@ complaintDetails: {
   },
 
   summary: {
-    complaintNumber: 'Complaint #{{id}}',
-    registered: 'Complaint registered on Djina.',
+    complaintNumber:
+      'Complaint #{{id}}',
+
+    registered:
+      'Complaint registered on Djina.',
+
+    customer: 'Customer',
+    course: 'Ride',
+    status: 'Status',
   },
 
   customer: {
     title: 'Customer',
-    subtitle: 'Requester information',
+
+    subtitle:
+      'Requester information',
+
+    description:
+      'Requester information',
+
     name: 'Name',
     phone: 'Phone',
     email: 'Email',
-    defaultName: 'Customer',
+
+    defaultName:
+      'Customer',
+  },
+
+  fields: {
+    name: 'Name',
+    customer: 'Customer',
+    phone: 'Phone',
+    email: 'Email',
   },
 
   course: {
-    title: 'Associated ride',
-    subtitle: 'Ride concerned by the complaint',
+    title:
+      'Associated ride',
+
+    subtitle:
+      'Ride concerned by the complaint',
+
+    description:
+      'Ride concerned by the complaint',
+
     view: 'View ride',
   },
 
   description: {
     title: 'Description',
-    subtitle: 'Reason provided by the customer',
-    empty: 'No description.',
+
+    subtitle:
+      'Reason provided by the customer',
+
+    description:
+      'Reason reported by the customer',
+
+    empty:
+      'No description.',
   },
 
   dates: {
     title: 'Dates',
-    subtitle: 'Complaint history',
-    created: 'Created on',
-    resolved: 'Resolved on',
-    updated: 'Updated on',
+
+    subtitle:
+      'Complaint history',
+
+    description:
+      'Complaint history',
+
+    created:
+      'Created on',
+
+    resolved:
+      'Resolved on',
+
+    updated:
+      'Updated on',
   },
 
   resolution: {
     title: 'Resolution',
-    subtitle: 'Handled by the administration',
-    resolvedBy: 'Resolved by',
-    note: 'Resolution note',
-    noNote: 'No resolution note.',
-    administrator: 'Administrator',
-    admin: 'Administrator',
-    superAdmin: 'Super Admin',
+
+    subtitle:
+      'Handled by the administration',
+
+    description:
+      'Processing performed by administration',
+
+    resolvedBy:
+      'Resolved by',
+
+    note:
+      'Resolution note',
+
+    noNote:
+      'No resolution note.',
+
+    administrator:
+      'Administrator',
+
+    admin:
+      'Administrator',
+
+    superAdmin:
+      'Super Admin',
+
+    administratorNumber:
+      'Administrator #{{id}}',
   },
 
   errors: {
-    load: 'Unable to load this complaint.',
-    notFound: 'Complaint not found',
+    load:
+      'Unable to load this complaint.',
+
+    notFound:
+      'Complaint not found',
   },
 },
-
-
-    complaintDetails: {
-      back: 'Back to complaints',
-      complaintNumber:
-        'Complaint #{{id}}',
-      profileDescription:
-        'Complaint registered on Djina.',
-
-      errors: {
-        load:
-          'Unable to load this complaint.',
-        notFound:
-          'Complaint not found',
-      },
-
-      summary: {
-        customer: 'Customer',
-        course: 'Ride',
-        status: 'Status',
-      },
-
-      customer: {
-        title: 'Customer',
-        description:
-          'Requester information',
-      },
-
-      fields: {
-        name: 'Name',
-        customer: 'Customer',
-        phone: 'Phone',
-        email: 'Email',
-      },
-
-      course: {
-        title: 'Associated ride',
-        description:
-          'Ride concerned by the complaint',
-        view: 'View ride',
-      },
-
-      description: {
-        title: 'Description',
-        description:
-          'Reason reported by the customer',
-        empty: 'No description.',
-      },
-
-      dates: {
-        title: 'Dates',
-        description:
-          'Complaint history',
-        created: 'Created on',
-        resolved: 'Resolved on',
-        updated: 'Updated on',
-      },
-
-      resolution: {
-        title: 'Resolution',
-        description:
-          'Processing performed by administration',
-        resolvedBy: 'Resolved by',
-        administratorNumber:
-          'Administrator #{{id}}',
-        note: 'Resolution note',
-        noNote:
-          'No resolution note.',
-      },
-    },
   },
 }
 

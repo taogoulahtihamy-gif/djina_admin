@@ -1146,9 +1146,13 @@ const fr = {
     },
 
 
-
 complaintDetails: {
   back: 'Retour aux réclamations',
+
+  complaintNumber: 'Réclamation #{{id}}',
+
+  profileDescription:
+    'Réclamation enregistrée sur Djina.',
 
   common: {
     customer: 'Client',
@@ -1163,34 +1167,74 @@ complaintDetails: {
   },
 
   summary: {
-    complaintNumber: 'Réclamation #{{id}}',
-    registered: 'Réclamation enregistrée sur Djina.',
+    complaintNumber:
+      'Réclamation #{{id}}',
+
+    registered:
+      'Réclamation enregistrée sur Djina.',
+
+    customer: 'Client',
+    course: 'Course',
+    status: 'Statut',
   },
 
   customer: {
     title: 'Client',
-    subtitle: 'Informations du demandeur',
+
+    subtitle:
+      'Informations du demandeur',
+
+    description:
+      'Informations du demandeur',
+
     name: 'Nom',
     phone: 'Téléphone',
     email: 'E-mail',
+
     defaultName: 'Client',
+  },
+
+  fields: {
+    name: 'Nom',
+    customer: 'Client',
+    phone: 'Téléphone',
+    email: 'E-mail',
   },
 
   course: {
     title: 'Course associée',
-    subtitle: 'Course concernée par la réclamation',
+
+    subtitle:
+      'Course concernée par la réclamation',
+
+    description:
+      'Course concernée par la réclamation',
+
     view: 'Voir la course',
   },
 
   description: {
     title: 'Description',
-    subtitle: 'Motif déclaré par le client',
-    empty: 'Aucune description.',
+
+    subtitle:
+      'Motif déclaré par le client',
+
+    description:
+      'Motif déclaré par le client',
+
+    empty:
+      'Aucune description.',
   },
 
   dates: {
     title: 'Dates',
-    subtitle: 'Historique de la réclamation',
+
+    subtitle:
+      'Historique de la réclamation',
+
+    description:
+      'Historique de la réclamation',
+
     created: 'Créée le',
     resolved: 'Résolue le',
     updated: 'Mise à jour le',
@@ -1198,92 +1242,44 @@ complaintDetails: {
 
   resolution: {
     title: 'Résolution',
-    subtitle: "Traitement effectué par l'administration",
-    resolvedBy: 'Résolu par',
-    note: 'Note de résolution',
-    noNote: 'Aucune note de résolution.',
-    administrator: 'Administrateur',
-    admin: 'Administrateur',
-    superAdmin: 'Super Admin',
+
+    subtitle:
+      "Traitement effectué par l'administration",
+
+    description:
+      'Traitement effectué par l’administration',
+
+    resolvedBy:
+      'Résolu par',
+
+    note:
+      'Note de résolution',
+
+    noNote:
+      'Aucune note de résolution.',
+
+    administrator:
+      'Administrateur',
+
+    admin:
+      'Administrateur',
+
+    superAdmin:
+      'Super Admin',
+
+    administratorNumber:
+      'Administrateur #{{id}}',
   },
 
   errors: {
-    load: 'Impossible de charger cette réclamation.',
-    notFound: 'Réclamation introuvable',
+    load:
+      'Impossible de charger cette réclamation.',
+
+    notFound:
+      'Réclamation introuvable',
   },
 },
 
-
-    complaintDetails: {
-      back:
-        'Retour aux réclamations',
-      complaintNumber:
-        'Réclamation #{{id}}',
-      profileDescription:
-        'Réclamation enregistrée sur Djina.',
-
-      errors: {
-        load:
-          'Impossible de charger cette réclamation.',
-        notFound:
-          'Réclamation introuvable',
-      },
-
-      summary: {
-        customer: 'Client',
-        course: 'Course',
-        status: 'Statut',
-      },
-
-      customer: {
-        title: 'Client',
-        description:
-          'Informations du demandeur',
-      },
-
-      fields: {
-        name: 'Nom',
-        customer: 'Client',
-        phone: 'Téléphone',
-        email: 'E-mail',
-      },
-
-      course: {
-        title: 'Course associée',
-        description:
-          'Course concernée par la réclamation',
-        view: 'Voir la course',
-      },
-
-      description: {
-        title: 'Description',
-        description:
-          'Motif déclaré par le client',
-        empty:
-          'Aucune description.',
-      },
-
-      dates: {
-        title: 'Dates',
-        description:
-          'Historique de la réclamation',
-        created: 'Créée le',
-        resolved: 'Résolue le',
-        updated: 'Mise à jour le',
-      },
-
-      resolution: {
-        title: 'Résolution',
-        description:
-          'Traitement effectué par l’administration',
-        resolvedBy: 'Résolu par',
-        administratorNumber:
-          'Administrateur #{{id}}',
-        note: 'Note de résolution',
-        noNote:
-          'Aucune note de résolution.',
-      },
-    },
   },
 }
 
