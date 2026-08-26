@@ -14888,3 +14888,72 @@ html[data-theme='light']
     min-width: 100%;
   }
 }
+
+/* =========================================================
+   RÉCLAMATIONS - NOTE DE RÉSOLUTION
+   ========================================================= */
+
+.complaint-resolution-note,
+.resolution-note,
+.complaint-resolution .resolution-note,
+.complaint-detail-resolution .resolution-note {
+  background: #111612 !important;
+  border: 1px solid rgba(34, 197, 94, 0.25) !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  color: #f3f4f6 !important;
+}
+
+.complaint-resolution-note *,
+.resolution-note *,
+.complaint-resolution .resolution-note *,
+.complaint-detail-resolution .resolution-note * {
+  color: inherit;
+}
+
+.complaint-resolution-note label,
+.resolution-note label,
+.complaint-resolution-note strong,
+.resolution-note strong {
+  color: #58d68d !important;
+  font-weight: 600;
+}
+
+.complaint-resolution-note p,
+.resolution-note p,
+.complaint-resolution-note span,
+.resolution-note span {
+  color: #d1d5db !important;
+}
+
+/* Si la note est affichée dans un textarea/input */
+.complaint-resolution textarea,
+.complaint-resolution input,
+.resolution-note textarea,
+.resolution-note input {
+  background: #111612 !important;
+  color: #f3f4f6 !important;
+  border: none !important;
+}
+
+.complaint-resolution textarea::placeholder,
+.complaint-resolution input::placeholder {
+  color: #7d8680 !important;
+}
+
+/* Mode clair */
+html[data-theme="light"] .complaint-resolution-note,
+html[data-theme="light"] .resolution-note,
+html[data-appearance="light"] .complaint-resolution-note,
+html[data-appearance="light"] .resolution-note {
+  background: #f2faf5 !important;
+  border-color: #cdebd8 !important;
+  color: #172019 !important;
+}
+
+html[data-theme="light"] .complaint-resolution-note p,
+html[data-theme="light"] .resolution-note p,
+html[data-appearance="light"] .complaint-resolution-note p,
+html[data-appearance="light"] .resolution-note p {
+  color: #405047 !important;
+}
