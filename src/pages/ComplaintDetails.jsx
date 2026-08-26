@@ -64,15 +64,66 @@ function getCustomerName(customer) {
   )
 }
 
+function getAdministratorName(complaint) {
+  const administrator =
+    complaint?.resolved_by_user
+
+  if (!administrator) {
+    return '—'
+  }
+
+  const fullName = [
+    administrator.first_name,
+    administrator.last_name,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .trim()
+
+  return (
+    fullName ||
+    administrator.email ||
+    'Administrateur'
+  )
+}
+
+function getAdministratorRole(complaint) {
+  const administrator =
+    complaint?.resolved_by_user
+
+  if (!administrator) {
+    return ''
+  }
+
+  if (administrator.is_superuser) {
+    return 'Super Admin'
+  }
+
+  if (
+    administrator.user_type === 'admin' ||
+    administrator.is_staff
+  ) {
+    return 'Administrateur'
+  }
+
+  return ''
+}
+
 function ComplaintDetails() {
   const { complaintId } = useParams()
   const navigate = useNavigate()
 
-  const [complaint, setComplaint] = useState(null)
-  const [customer, setCustomer] = useState(null)
+  const [complaint, setComplaint] =
+    useState(null)
 
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState('')
+  const [customer, setCustomer] =
+    useState(null)
+
+  const [isLoading, setIsLoading] =
+    useState(true)
+
+  const [error, setError] =
+    useState('')
 
   useEffect(() => {
     const loadComplaint = async () => {
@@ -81,19 +132,25 @@ function ComplaintDetails() {
         setError('')
 
         const complaintData =
-          await getComplaintById(complaintId)
+          await getComplaintById(
+            complaintId,
+          )
 
-        setComplaint(complaintData)
+        setComplaint(
+          complaintData,
+        )
 
         try {
           const customersData =
             await getCustomers()
 
-          const customers = Array.isArray(
-            customersData,
-          )
-            ? customersData
-            : customersData?.results ?? []
+          const customers =
+            Array.isArray(
+              customersData,
+            )
+              ? customersData
+              : customersData?.results ??
+                []
 
           const relatedCustomer =
             customers.find(
@@ -105,8 +162,13 @@ function ComplaintDetails() {
           setCustomer(
             relatedCustomer || null,
           )
-        } catch (customerError) {
-          console.error(customerError)
+        } catch (
+          customerError
+        ) {
+          console.error(
+            customerError,
+          )
+
           setCustomer(null)
         }
       } catch (err) {
@@ -140,7 +202,9 @@ function ComplaintDetails() {
           type="button"
           className="complaint-back-link"
           onClick={() =>
-            navigate('/admin/complaints')
+            navigate(
+              '/admin/complaints',
+            )
           }
         >
           <ArrowLeft size={17} />
@@ -161,6 +225,16 @@ function ComplaintDetails() {
   const customerName =
     getCustomerName(customer)
 
+  const administratorName =
+    getAdministratorName(
+      complaint,
+    )
+
+  const administratorRole =
+    getAdministratorRole(
+      complaint,
+    )
+
   return (
     <section className="complaint-details-page">
       <div className="complaint-details-topline">
@@ -168,10 +242,13 @@ function ComplaintDetails() {
           type="button"
           className="complaint-back-link"
           onClick={() =>
-            navigate('/admin/complaints')
+            navigate(
+              '/admin/complaints',
+            )
           }
         >
           <ArrowLeft size={17} />
+
           Retour aux réclamations
         </button>
 
@@ -205,8 +282,8 @@ function ComplaintDetails() {
             </h2>
 
             <p>
-              Réclamation enregistrée sur
-              Djina.
+              Réclamation enregistrée
+              sur Djina.
             </p>
           </div>
         </div>
@@ -243,6 +320,7 @@ function ComplaintDetails() {
       </section>
 
       <div className="complaint-details-grid">
+
         <section className="complaint-detail-card">
           <div className="complaint-detail-card-heading">
             <UserRound size={18} />
@@ -251,7 +329,8 @@ function ComplaintDetails() {
               <h3>Client</h3>
 
               <p>
-                Informations du demandeur
+                Informations du
+                demandeur
               </p>
             </div>
           </div>
@@ -280,8 +359,8 @@ function ComplaintDetails() {
               <span>Téléphone</span>
 
               <strong>
-                {customer?.user?.phone ||
-                  '—'}
+                {customer?.user
+                  ?.phone || '—'}
               </strong>
             </div>
 
@@ -289,8 +368,8 @@ function ComplaintDetails() {
               <span>E-mail</span>
 
               <strong>
-                {customer?.user?.email ||
-                  '—'}
+                {customer?.user
+                  ?.email || '—'}
               </strong>
             </div>
           </div>
@@ -301,11 +380,13 @@ function ComplaintDetails() {
             <Route size={18} />
 
             <div>
-              <h3>Course associée</h3>
+              <h3>
+                Course associée
+              </h3>
 
               <p>
-                Course concernée par la
-                réclamation
+                Course concernée par
+                la réclamation
               </p>
             </div>
           </div>
@@ -344,7 +425,8 @@ function ComplaintDetails() {
               <h3>Description</h3>
 
               <p>
-                Motif déclaré par le client
+                Motif déclaré par le
+                client
               </p>
             </div>
           </div>
@@ -357,13 +439,16 @@ function ComplaintDetails() {
 
         <section className="complaint-detail-card">
           <div className="complaint-detail-card-heading">
-            <CalendarDays size={18} />
+            <CalendarDays
+              size={18}
+            />
 
             <div>
               <h3>Dates</h3>
 
               <p>
-                Historique de la réclamation
+                Historique de la
+                réclamation
               </p>
             </div>
           </div>
@@ -390,7 +475,9 @@ function ComplaintDetails() {
             </div>
 
             <div>
-              <span>Mise à jour le</span>
+              <span>
+                Mise à jour le
+              </span>
 
               <strong>
                 {formatDate(
@@ -403,14 +490,16 @@ function ComplaintDetails() {
 
         <section className="complaint-detail-card complaint-resolution-card">
           <div className="complaint-detail-card-heading">
-            <CheckCircle2 size={18} />
+            <CheckCircle2
+              size={18}
+            />
 
             <div>
               <h3>Résolution</h3>
 
               <p>
-                Traitement effectué par
-                l’administration
+                Traitement effectué
+                par l’administration
               </p>
             </div>
           </div>
@@ -422,23 +511,34 @@ function ComplaintDetails() {
               <strong>
                 {STATUS_LABELS[
                   complaint.status
-                ] || complaint.status}
+                ] ||
+                  complaint.status}
               </strong>
             </div>
 
             <div>
-              <span>Résolu par</span>
+              <span>
+                Résolu par
+              </span>
 
-              <strong>
-                {complaint.resolved_by
-                  ? `Administrateur #${complaint.resolved_by}`
-                  : '—'}
-              </strong>
+              <div className="complaint-resolver">
+                <strong>
+                  {administratorName}
+                </strong>
+
+                {administratorRole && (
+                  <small>
+                    {administratorRole}
+                  </small>
+                )}
+              </div>
             </div>
           </div>
 
           <div className="complaint-resolution-note">
-            <span>Note de résolution</span>
+            <span>
+              Note de résolution
+            </span>
 
             <p>
               {complaint.resolution_note ||

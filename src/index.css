@@ -14957,3 +14957,35 @@ html[data-appearance="light"] .complaint-resolution-note p,
 html[data-appearance="light"] .resolution-note p {
   color: #405047 !important;
 }
+
+/* =========================================================
+   RÉCLAMATION - ADMINISTRATEUR DE RÉSOLUTION
+   ========================================================= */
+
+.complaint-resolver {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.complaint-resolver strong {
+  color: #f8fafc;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.complaint-resolver small {
+  color: #ffaa01;
+  font-size: 10.5px;
+  font-weight: 500;
+}
+
+html[data-theme='light']
+.complaint-resolver strong {
+  color: #18181b;
+}
+
+html[data-theme='light']
+.complaint-resolver small {
+  color: #b97700;
+}
