@@ -12,7 +12,7 @@ import AdminLayout from './layouts/AdminLayout'
 import ProtectedRoute from './routes/ProtectedRoute'
 import SuperAdminRoute from './routes/SuperAdminRoute'
 
-import Login from './pages/Login'
+import LoginBrandGate from './components/LoginBrandGate'
 import Register from './pages/Register'
 
 import Dashboard from './pages/Dashboard'
@@ -48,7 +48,7 @@ function App() {
           {/* Auth */}
           <Route
             path="/login"
-            element={<Login />}
+            element={<LoginBrandGate />}
           />
 
           {/* Inscription publique désactivée */}

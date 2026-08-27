@@ -41,7 +41,7 @@ function PendingActions({
       ),
       value: pendingPayments,
       icon: WalletCards,
-      tone: 'orange',
+      tone: 'green',
       path: '/admin/payments',
     },
   ]

@@ -537,11 +537,20 @@ function Sidebar({
           <div>
             <span className="sidebar-logo">
               <span className="logo-full">
-                DJINA
+                <img
+                  className="sidebar-logo-image"
+                  src="/brand/djina-logo.png"
+                  alt="DJINA — Votre trajet en un clic"
+                />
               </span>
 
               <span className="logo-compact">
-                D
+                <span className="sidebar-logo-mark">
+                  <img
+                    src="/brand/djina-logo.png"
+                    alt=""
+                  />
+                </span>
               </span>
             </span>
 

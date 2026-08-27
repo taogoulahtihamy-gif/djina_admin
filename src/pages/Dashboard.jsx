@@ -860,7 +860,7 @@ function Dashboard() {
         Clock3,
 
       tone:
-        'orange',
+        'green',
     },
 
     {

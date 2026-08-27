@@ -141,6 +141,13 @@ function Login() {
         <div className="login-form-panel">
           <div className="login-form-wrap">
             <header className="login-form-header">
+              <div className="login-brand-logo">
+                <img
+                  src="/brand/djina-logo.png"
+                  alt="Logo DJINA"
+                />
+              </div>
+
               <h2>
                 Connexion à Djina
               </h2>
