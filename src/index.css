@@ -900,7 +900,7 @@ button {
 }
 
 .courses-table tbody tr:hover {
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--primary-soft);
 }
 
 .pending-actions-list {
@@ -1735,6 +1735,262 @@ button {
     content: attr(data-label);
     font-weight: 600;
   }
+}
+
+/* =====================================================
+   DJINA DARK THEME
+   A deep charcoal canvas with elevated graphite surfaces.
+   Kept at the end of the cascade because the legacy light
+   theme intentionally uses a number of !important rules.
+===================================================== */
+html[data-theme='dark'] {
+  color-scheme: dark !important;
+  --background: #0b100e;
+  --surface: #121a16;
+  --surface-elevated: #18221d;
+  --sidebar: #006f38;
+  --text: #f3f7f4;
+  --text-muted: #93a39a;
+  --border: rgba(214, 235, 222, 0.11);
+  --primary: #29c878;
+  --primary-hover: #50dc94;
+  --primary-soft: rgba(41, 200, 120, 0.13);
+  --djina-white: #f5f8f6;
+  --djina-black: #f3f7f4;
+  --djina-black-90: rgba(243, 247, 244, 0.90);
+  --djina-black-70: rgba(226, 236, 230, 0.72);
+  --djina-black-55: rgba(205, 220, 211, 0.62);
+  --djina-black-35: rgba(190, 207, 197, 0.42);
+  --djina-black-18: rgba(214, 235, 222, 0.20);
+  --djina-black-12: rgba(214, 235, 222, 0.14);
+  --djina-black-08: rgba(214, 235, 222, 0.10);
+  --djina-black-05: rgba(214, 235, 222, 0.06);
+  --djina-black-03: rgba(214, 235, 222, 0.035);
+  --djina-green: #29c878;
+  --djina-green-dark: #20b86b;
+  --djina-green-deep: #149557;
+  --djina-green-soft: rgba(41, 200, 120, 0.14);
+  --djina-green-softer: rgba(41, 200, 120, 0.075);
+  background: #0b100e !important;
+}
+
+html[data-theme='dark'],
+html[data-theme='dark'] body,
+html[data-theme='dark'] #root {
+  color: var(--text) !important;
+  background: #0b100e !important;
+  color-scheme: dark !important;
+}
+
+html[data-theme='dark'] body::before { background: #0b100e !important; }
+
+html[data-theme='dark'] .admin-layout {
+  color: var(--text) !important;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(41, 200, 120, 0.09), transparent 28%),
+    radial-gradient(circle at 92% 20%, rgba(41, 200, 120, 0.035), transparent 24%),
+    #0b100e !important;
+}
+
+html[data-theme='dark'] .admin-shell,
+html[data-theme='dark'] .main-content,
+html[data-theme='dark'] .dashboard-page,
+html[data-theme='dark'] .courses-page,
+html[data-theme='dark'] .course-details-page,
+html[data-theme='dark'] .drivers-page,
+html[data-theme='dark'] .driver-details-page,
+html[data-theme='dark'] .documents-page,
+html[data-theme='dark'] .customers-page,
+html[data-theme='dark'] .customer-details-page,
+html[data-theme='dark'] .vehicles-page,
+html[data-theme='dark'] .vehicle-details-page,
+html[data-theme='dark'] .payments-page,
+html[data-theme='dark'] .payment-details-page,
+html[data-theme='dark'] .complaints-page,
+html[data-theme='dark'] .complaint-details-page,
+html[data-theme='dark'] .settings-page,
+html[data-theme='dark'] .create-admin-page {
+  color: var(--text) !important;
+  background: transparent !important;
+}
+
+html[data-theme='dark'] .topbar { background: #0b100e !important; }
+html[data-theme='dark'] .topbar-heading h1,
+html[data-theme='dark'] .topbar-date-day,
+html[data-theme='dark'] .profile-identity strong { color: var(--text) !important; }
+html[data-theme='dark'] .topbar-heading p,
+html[data-theme='dark'] .topbar-date-meta,
+html[data-theme='dark'] .profile-identity small,
+html[data-theme='dark'] .profile-chevron { color: var(--text-muted) !important; }
+
+html[data-theme='dark'] .admin-controls,
+html[data-theme='dark'] .notifications-panel,
+html[data-theme='dark'] .profile-menu,
+html[data-theme='dark'] .topbar-menu {
+  color: var(--text) !important;
+  background: #121a16 !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32) !important;
+}
+
+html[data-theme='dark'] .notification-trigger,
+html[data-theme='dark'] .profile-trigger,
+html[data-theme='dark'] .notifications-panel strong,
+html[data-theme='dark'] .profile-menu button,
+html[data-theme='dark'] .notification-item-copy strong { color: var(--text) !important; }
+html[data-theme='dark'] .notifications-panel p,
+html[data-theme='dark'] .notifications-panel-header span,
+html[data-theme='dark'] .notification-item-copy small { color: var(--text-muted) !important; }
+
+html[data-theme='dark'] .dashboard-block,
+html[data-theme='dark'] .create-admin-card,
+html[data-theme='dark'] .courses-stat-card,
+html[data-theme='dark'] .courses-list-card,
+html[data-theme='dark'] .course-summary-card,
+html[data-theme='dark'] .course-detail-card,
+html[data-theme='dark'] .course-timeline-card,
+html[data-theme='dark'] .course-cancellation-info,
+html[data-theme='dark'] .drivers-stat-card,
+html[data-theme='dark'] .drivers-list-card,
+html[data-theme='dark'] .driver-summary-card,
+html[data-theme='dark'] .driver-detail-card,
+html[data-theme='dark'] .documents-stat-card,
+html[data-theme='dark'] .documents-list-card,
+html[data-theme='dark'] .customers-stat-card,
+html[data-theme='dark'] .customers-list-card,
+html[data-theme='dark'] .customer-summary-card,
+html[data-theme='dark'] .customer-detail-card,
+html[data-theme='dark'] .customer-courses-card,
+html[data-theme='dark'] .customer-latest-card,
+html[data-theme='dark'] .vehicles-stat-card,
+html[data-theme='dark'] .vehicles-list-card,
+html[data-theme='dark'] .vehicle-summary-card,
+html[data-theme='dark'] .vehicle-detail-card,
+html[data-theme='dark'] .payments-stat-card,
+html[data-theme='dark'] .payments-total-card,
+html[data-theme='dark'] .payments-list-card,
+html[data-theme='dark'] .payment-summary-card,
+html[data-theme='dark'] .payment-detail-card,
+html[data-theme='dark'] .complaints-stat-card,
+html[data-theme='dark'] .complaints-list-card,
+html[data-theme='dark'] .complaint-summary-card,
+html[data-theme='dark'] .complaint-detail-card,
+html[data-theme='dark'] .settings-card,
+html[data-theme='dark'] .operational-stat,
+html[data-theme='dark'] .document-reject-dialog,
+html[data-theme='dark'] .complaint-resolve-dialog,
+html[data-theme='dark'] .security-modal,
+html[data-theme='dark'] .profile-edit-modal,
+html[data-theme='dark'] .active-sessions-modal {
+  color: var(--text) !important;
+  background: linear-gradient(145deg, #141d18, #111814) !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.20) !important;
+}
+
+html[data-theme='dark'] :is(
+  .dashboard-card-header h2, .stat-card-value, .stat-card-value strong,
+  .operational-stat strong, .operational-stat-value, .courses-page-header h1,
+  .courses-stat-card strong, .course-summary-main h2, .drivers-stat-card strong,
+  .driver-summary-identity h2, .documents-stat-card strong, .customers-stat-card strong,
+  .customer-summary-identity h2, .vehicles-stat-card strong, .vehicle-summary-identity h2,
+  .payments-stat-card strong, .payments-total-card strong, .payment-summary-identity h2,
+  .complaints-stat-card strong, .complaint-summary-identity h2, .settings-card-heading h2,
+  .settings-card strong, .settings-toggle-row strong
+) { color: var(--text) !important; }
+
+html[data-theme='dark'] :is(
+  .stat-card-title, .stat-card-description, .dashboard-card-header p,
+  .operational-stat span, .operational-stat-label, .courses-page-header p,
+  .courses-stat-card span, .drivers-stat-card span, .documents-stat-card span,
+  .customers-stat-card span, .vehicles-stat-card span, .payments-stat-card span,
+  .complaints-stat-card span, .settings-card-heading p, .settings-detail-list span,
+  .settings-toggle-row > div > span
+) { color: var(--text-muted) !important; }
+
+html[data-theme='dark'] .settings-language-option,
+html[data-theme='dark'] .settings-secondary-action,
+html[data-theme='dark'] .settings-appearance-options button,
+html[data-theme='dark'] .settings-security-actions button,
+html[data-theme='dark'] .create-admin-input,
+html[data-theme='dark'] .courses-search,
+html[data-theme='dark'] .drivers-search,
+html[data-theme='dark'] .documents-search,
+html[data-theme='dark'] .customers-search,
+html[data-theme='dark'] .vehicles-search,
+html[data-theme='dark'] .payments-search,
+html[data-theme='dark'] .complaints-search,
+html[data-theme='dark'] select,
+html[data-theme='dark'] input,
+html[data-theme='dark'] textarea {
+  color: var(--text) !important;
+  background: #0f1713 !important;
+  border-color: var(--border) !important;
+  color-scheme: dark !important;
+}
+
+html[data-theme='dark'] .settings-language-option:hover,
+html[data-theme='dark'] .settings-secondary-action:hover,
+html[data-theme='dark'] .settings-appearance-options button:hover,
+html[data-theme='dark'] .settings-security-actions button:hover { background: #18241e !important; }
+
+html[data-theme='dark'] .settings-language-option.is-selected,
+html[data-theme='dark'] .settings-appearance-options button.is-selected {
+  color: #65e4a4 !important;
+  background: rgba(41, 200, 120, 0.14) !important;
+  border-color: rgba(65, 215, 140, 0.45) !important;
+}
+
+html[data-theme='dark'] .settings-toggle-row,
+html[data-theme='dark'] .settings-current-language,
+html[data-theme='dark'] .settings-detail-list > div { border-color: var(--border) !important; }
+
+html[data-theme='dark'] .courses-table,
+html[data-theme='dark'] .drivers-table,
+html[data-theme='dark'] .documents-table,
+html[data-theme='dark'] .customers-table,
+html[data-theme='dark'] .vehicles-table,
+html[data-theme='dark'] .payments-table,
+html[data-theme='dark'] .complaints-table,
+html[data-theme='dark'] :is(.courses-table-wrapper, .drivers-table-wrapper, .documents-table-wrapper, .customers-table-wrapper, .vehicles-table-wrapper, .payments-table-wrapper, .complaints-table-wrapper) {
+  background: #121a16 !important;
+}
+
+html[data-theme='dark'] :is(.courses-table, .drivers-table, .documents-table, .customers-table, .vehicles-table, .payments-table, .complaints-table) th {
+  color: var(--text-muted) !important;
+  background: #18221d !important;
+  border-color: var(--border) !important;
+}
+
+html[data-theme='dark'] :is(.courses-table, .drivers-table, .documents-table, .customers-table, .vehicles-table, .payments-table, .complaints-table) td {
+  color: var(--text) !important;
+  background: transparent !important;
+  border-color: var(--border) !important;
+}
+
+html[data-theme='dark'] :is(.courses-table, .drivers-table, .documents-table, .customers-table, .vehicles-table, .payments-table, .complaints-table) tbody tr {
+  color: var(--text) !important;
+  background: #121a16 !important;
+}
+
+html[data-theme='dark'] :is(.courses-table, .drivers-table, .documents-table, .customers-table, .vehicles-table, .payments-table, .complaints-table) tbody tr:hover,
+html[data-theme='dark'] :is(.courses-table, .drivers-table, .documents-table, .customers-table, .vehicles-table, .payments-table, .complaints-table) tbody tr:hover td {
+  background: rgba(41, 200, 120, 0.07) !important;
+}
+
+html[data-theme='dark'] option { color: var(--text) !important; background: #121a16 !important; }
+html[data-theme='dark'] input::placeholder,
+html[data-theme='dark'] textarea::placeholder { color: #6f8077 !important; }
+html[data-theme='dark'] ::selection { color: #07100b; background: #4cdb92; }
+html[data-theme='dark'] ::-webkit-scrollbar-track,
+html[data-theme='dark'] ::-webkit-scrollbar-corner { background: #0b100e !important; }
+html[data-theme='dark'] ::-webkit-scrollbar-thumb { background: #33433a !important; }
+
+@media (max-width: 960px) {
+  html[data-theme='dark'],
+  html[data-theme='dark'] body,
+  html[data-theme='dark'] #root,
+  html[data-theme='dark'] .admin-layout { background: #0b100e !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -7328,10 +7584,10 @@ body::before { position:fixed; inset:0; z-index:-9999; content:""; background:#F
 .courses-table tbody tr,.drivers-table tbody tr,.documents-table tbody tr,.customers-table tbody tr,.vehicles-table tbody tr,.payments-table tbody tr,.complaints-table tbody tr { background:#FFFFFF !important; color:#111111 !important; }
 .courses-table td,.drivers-table td,.documents-table td,.customers-table td,.vehicles-table td,.payments-table td,.complaints-table td { background:transparent !important; color:#111111 !important; border-color:rgba(17, 17, 17, 0.08) !important; }
 .courses-table tbody tr:hover,.drivers-table tbody tr:hover,.documents-table tbody tr:hover,.customers-table tbody tr:hover,.vehicles-table tbody tr:hover,.payments-table tbody tr:hover,.complaints-table tbody tr:hover,
-.courses-table tbody tr:hover td,.drivers-table tbody tr:hover td,.documents-table tbody tr:hover td,.customers-table tbody tr:hover td,.vehicles-table tbody tr:hover td,.payments-table tbody tr:hover td,.complaints-table tbody tr:hover td { background:rgba(0, 129, 64, 0.04) !important; color:#111111 !important; }
+.courses-table tbody tr:hover td,.drivers-table tbody tr:hover td,.documents-table tbody tr:hover td,.customers-table tbody tr:hover td,.vehicles-table tbody tr:hover td,.payments-table tbody tr:hover td,.complaints-table tbody tr:hover td { background:var(--primary-soft) !important; color:var(--text) !important; }
 
 table tbody tr:focus,table tbody tr:focus-visible,table tbody tr.is-selected,table tbody tr[aria-selected='true'],
-table tbody tr:focus td,table tbody tr:focus-visible td,table tbody tr.is-selected td,table tbody tr[aria-selected='true'] td { background:rgba(0, 129, 64, 0.08) !important; color:#111111 !important; outline:none !important; }
+table tbody tr:focus td,table tbody tr:focus-visible td,table tbody tr.is-selected td,table tbody tr[aria-selected='true'] td { background:var(--primary-soft) !important; color:var(--text) !important; outline:none !important; }
 input,select,textarea { color-scheme:light; }
 select option,option { background:#FFFFFF !important; color:#111111 !important; }
 select option:checked,option:checked { background:rgba(0, 129, 64, 0.1) !important; color:#008140 !important; }
@@ -14392,4 +14648,638 @@ body,
     background:
       var(--djina-white) !important;
   }
+}
+
+/* Authentication stays intentionally light, even when the saved admin
+   preference is dark. This prevents a logged-out session inheriting the
+   dashboard palette. */
+html[data-theme='dark'] .login-page,
+html[data-theme='dark'] .register-page,
+html[data-theme='dark'] .auth-loader {
+  color: #111111 !important;
+  background: radial-gradient(circle at 82% 12%, rgba(0, 129, 64, 0.06), transparent 26%), #FFFFFF !important;
+  color-scheme: light !important;
+}
+
+html[data-theme='dark'] .login-shell,
+html[data-theme='dark'] .login-form-panel,
+html[data-theme='dark'] .register-form-panel {
+  color: #111111 !important;
+  background: #FFFFFF !important;
+  border-color: rgba(17, 17, 17, 0.08) !important;
+}
+
+html[data-theme='dark'] .login-form-header h2,
+html[data-theme='dark'] .login-form label,
+html[data-theme='dark'] .register-form label {
+  color: #111111 !important;
+}
+
+html[data-theme='dark'] .login-form-header p,
+html[data-theme='dark'] .login-form .remember-option,
+html[data-theme='dark'] .login-register-link,
+html[data-theme='dark'] .register-login-link,
+html[data-theme='dark'] .login-legal-links,
+html[data-theme='dark'] .login-legal-links button {
+  color: rgba(17, 17, 17, 0.58) !important;
+}
+
+html[data-theme='dark'] .login-input-wrap,
+html[data-theme='dark'] .register-field {
+  color: #111111 !important;
+  background: #FFFFFF !important;
+  border-color: rgba(17, 17, 17, 0.12) !important;
+  color-scheme: light !important;
+}
+
+html[data-theme='dark'] .login-input-wrap input,
+html[data-theme='dark'] .register-field input,
+html[data-theme='dark'] .register-field select {
+  color: #111111 !important;
+  background: transparent !important;
+  color-scheme: light !important;
+}
+
+html[data-theme='dark'] .login-input-wrap input::placeholder,
+html[data-theme='dark'] .register-field input::placeholder {
+  color: rgba(17, 17, 17, 0.36) !important;
+}
+
+html[data-theme='dark'] .login-field-icon,
+html[data-theme='dark'] .login-password-toggle {
+  color: rgba(17, 17, 17, 0.52) !important;
+}
+
+/* Dark theme component pass: consistent contrast across list and detail pages. */
+html[data-theme='dark'] :is(
+  .course-details-page, .driver-details-page, .customer-details-page,
+  .vehicle-details-page, .payment-details-page, .complaint-details-page,
+  .dashboard-page, .courses-page, .drivers-page, .documents-page,
+  .customers-page, .vehicles-page, .payments-page, .complaints-page
+) :is(h1, h2, h3, strong, dt) {
+  color: #f3f7f4 !important;
+}
+
+html[data-theme='dark'] :is(
+  .course-details-page, .driver-details-page, .customer-details-page,
+  .vehicle-details-page, .payment-details-page, .complaint-details-page,
+  .dashboard-page, .courses-page, .drivers-page, .documents-page,
+  .customers-page, .vehicles-page, .payments-page, .complaints-page
+) :is(p, small, dd) {
+  color: #93a39a !important;
+}
+
+html[data-theme='dark'] :is(
+  .course-detail-card-heading, .driver-detail-card-heading,
+  .customer-detail-card-heading, .vehicle-detail-card-heading,
+  .payment-detail-card-heading, .complaint-detail-card-heading
+) svg {
+  color: #31d682 !important;
+}
+
+html[data-theme='dark'] :is(
+  .course-detail-list, .driver-detail-list, .customer-detail-list,
+  .vehicle-detail-list, .payment-detail-list, .complaint-detail-list
+) > div {
+  border-color: rgba(214, 235, 222, 0.11) !important;
+}
+
+html[data-theme='dark'] :is(
+  .course-detail-list, .driver-detail-list, .customer-detail-list,
+  .vehicle-detail-list, .payment-detail-list, .complaint-detail-list
+) :is(span, small) {
+  color: #82958a !important;
+}
+
+html[data-theme='dark'] :is(
+  .course-detail-list, .driver-detail-list, .customer-detail-list,
+  .vehicle-detail-list, .payment-detail-list, .complaint-detail-list
+) :is(strong, a) {
+  color: #e7f0eb !important;
+}
+
+html[data-theme='dark'] :is(
+  .course-summary-label, .driver-summary-label, .customer-summary-label,
+  .vehicle-summary-label, .payment-summary-label, .complaint-summary-label
+) { color: #82958a !important; }
+
+html[data-theme='dark'] :is(
+  .course-summary-metrics, .driver-summary-metrics, .customer-summary-metrics,
+  .vehicle-summary-metrics, .payment-summary-metrics, .complaint-summary-metrics
+) :is(span, small) { color: #82958a !important; }
+
+html[data-theme='dark'] :is(
+  .course-summary-metrics, .driver-summary-metrics, .customer-summary-metrics,
+  .vehicle-summary-metrics, .payment-summary-metrics, .complaint-summary-metrics
+) strong { color: #f3f7f4 !important; }
+
+html[data-theme='dark'] :is(
+  .course-timeline-item, .driver-latest-course, .customer-course-row,
+  .complaint-course-module, .payment-course-module, .complaint-description-full,
+  .complaint-resolution-note, .vehicle-image-wrapper, .driver-empty-module,
+  .customer-empty-module, .vehicle-empty-module
+) {
+  color: #e7f0eb !important;
+  background: #17211c !important;
+  border-color: rgba(214, 235, 222, 0.11) !important;
+}
+
+html[data-theme='dark'] :is(
+  .course-timeline-item, .driver-latest-course, .customer-course-row,
+  .complaint-course-module, .payment-course-module, .complaint-description-full,
+  .complaint-resolution-note
+) :is(strong, h3, a) { color: #edf5f0 !important; }
+
+html[data-theme='dark'] :is(
+  .course-timeline-item, .driver-latest-course, .customer-course-row,
+  .complaint-course-module, .payment-course-module, .complaint-description-full,
+  .complaint-resolution-note
+) :is(span, small, p) { color: #93a39a !important; }
+
+html[data-theme='dark'] .dashboard-control-center {
+  color: #e7f0eb !important;
+  background: linear-gradient(135deg, #152019, #111914) !important;
+  border-color: rgba(214, 235, 222, 0.11) !important;
+  border-left-color: #29c878 !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2) !important;
+}
+
+html[data-theme='dark'] .dashboard-control-text > strong { color: #f3f7f4 !important; }
+html[data-theme='dark'] .dashboard-control-text > small { color: #93a39a !important; }
+
+html[data-theme='dark'] :is(
+  .dashboard-period-selector, .dashboard-top-action--period,
+  .period-selector, .activity-period-badge
+) {
+  color: #dce8e1 !important;
+  background: #17211c !important;
+  border-color: rgba(214, 235, 222, 0.13) !important;
+}
+
+html[data-theme='dark'] :is(.period-menu, .dashboard-period-menu) {
+  color: #e7f0eb !important;
+  background: #17211c !important;
+  border-color: rgba(214, 235, 222, 0.13) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.38) !important;
+}
+
+html[data-theme='dark'] .period-menu-option { color: #dce8e1 !important; }
+html[data-theme='dark'] .period-menu-option:hover { background: rgba(41, 200, 120, 0.09) !important; }
+
+html[data-theme='dark'] :is(.pending-action, .notification-item) {
+  color: #dce8e1 !important;
+  background: transparent !important;
+  border-color: rgba(214, 235, 222, 0.09) !important;
+}
+html[data-theme='dark'] :is(.pending-action, .notification-item):hover {
+  background: rgba(41, 200, 120, 0.075) !important;
+}
+html[data-theme='dark'] .pending-action :is(strong, span) { color: #dce8e1 !important; }
+
+html[data-theme='dark'] :is(.activity-bars-grid span, .distribution-track) {
+  background: rgba(214, 235, 222, 0.11) !important;
+}
+html[data-theme='dark'] :is(.activity-bar-day, .activity-bar-value, .distribution-row) {
+  color: #93a39a !important;
+}
+
+html[data-theme='dark'] :is(
+  .courses-table, .drivers-table, .documents-table, .customers-table,
+  .vehicles-table, .payments-table, .complaints-table
+) tbody tr:is(:focus, :focus-visible, .is-selected, [aria-selected='true']),
+html[data-theme='dark'] :is(
+  .courses-table, .drivers-table, .documents-table, .customers-table,
+  .vehicles-table, .payments-table, .complaints-table
+) tbody tr:is(:focus, :focus-visible, .is-selected, [aria-selected='true']) td {
+  color: #eef6f1 !important;
+  background: rgba(41, 200, 120, 0.12) !important;
+}
+
+html[data-theme='dark'] :is(
+  .courses-refresh-button, .drivers-refresh-button, .documents-refresh-button,
+  .customers-refresh-button, .vehicles-refresh-button, .payments-refresh-button,
+  .complaints-refresh-button, .create-admin-cancel, .course-cancel-secondary,
+  .document-dialog-secondary, .complaint-dialog-secondary
+) {
+  color: #dce8e1 !important;
+  background: #17211c !important;
+  border-color: rgba(214, 235, 222, 0.14) !important;
+}
+
+html[data-theme='dark'] :is(
+  .courses-refresh-button, .drivers-refresh-button, .documents-refresh-button,
+  .customers-refresh-button, .vehicles-refresh-button, .payments-refresh-button,
+  .complaints-refresh-button, .create-admin-cancel, .course-cancel-secondary,
+  .document-dialog-secondary, .complaint-dialog-secondary
+):hover:not(:disabled) {
+  color: #58df9a !important;
+  background: rgba(41, 200, 120, 0.10) !important;
+  border-color: rgba(41, 200, 120, 0.36) !important;
+}
+
+html[data-theme='dark'] :is(
+  .create-admin-link, .create-admin-submit, .payment-course-module button,
+  .complaint-course-module button, .customer-latest-card button,
+  .document-approve-button, .payment-mark-paid-button,
+  .complaint-resolve-button, .complaint-dialog-confirm
+) {
+  color: #06130c !important;
+  background: #35d785 !important;
+  border-color: #35d785 !important;
+}
+
+html[data-theme='dark'] :is(
+  .create-admin-link, .create-admin-submit, .payment-course-module button,
+  .complaint-course-module button, .customer-latest-card button,
+  .document-approve-button, .payment-mark-paid-button,
+  .complaint-resolve-button, .complaint-dialog-confirm
+):hover:not(:disabled) {
+  color: #07120c !important;
+  background: #62e6a4 !important;
+  border-color: #62e6a4 !important;
+}
+
+html[data-theme='dark'] :is(
+  .status-badge, .course-status-badge, .driver-status-badge,
+  .driver-account-badge, .document-status-badge, .payment-status-badge,
+  .complaint-status-badge, .vehicle-status-badge, .vehicle-comfort-badge
+) {
+  color: #b8c8be !important;
+  background: rgba(214, 235, 222, 0.07) !important;
+  border-color: rgba(214, 235, 222, 0.12) !important;
+}
+
+html[data-theme='dark'] :is(
+  .status-badge--completed, .status-completed, .status-paid, .status-approved,
+  .status-resolved, .driver-status-badge.is-online,
+  .driver-account-badge.is-enabled, .vehicle-status-badge.is-active
+) {
+  color: #58df9a !important;
+  background: rgba(41, 200, 120, 0.12) !important;
+  border-color: rgba(41, 200, 120, 0.24) !important;
+}
+
+html[data-theme='dark'] .complaint-description-card,
+html[data-theme='dark'] .complaint-resolution-card {
+  color: #e7f0eb !important;
+  background: linear-gradient(145deg, #141d18, #111814) !important;
+  border-color: rgba(214, 235, 222, 0.11) !important;
+}
+
+html[data-theme='dark'] :is(.course-back-link, .driver-back-link, .customer-back-link,
+  .vehicle-back-link, .payment-back-link, .complaint-back-link,
+  .payment-course-link, .complaint-course-link) {
+  color: #43d98d !important;
+}
+
+/* Selection language: tinted surfaces instead of pure white. */
+html[data-theme='light'] .nav-item.is-active,
+html[data-theme='light'] .admin-layout.sidebar-collapsed .nav-item.is-active {
+  color: #006c36 !important;
+  background: #dff5e8 !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 129, 64, 0.10) !important;
+}
+
+html[data-theme='dark'] .nav-item.is-active,
+html[data-theme='dark'] .admin-layout.sidebar-collapsed .nav-item.is-active {
+  color: #dff8ea !important;
+  background: rgba(213, 247, 227, 0.17) !important;
+  box-shadow: inset 0 0 0 1px rgba(223, 248, 234, 0.16) !important;
+}
+
+html[data-theme='light'] :is(
+  .courses-table, .drivers-table, .documents-table, .customers-table,
+  .vehicles-table, .payments-table, .complaints-table
+) tbody tr:is(:focus, :focus-visible, .is-selected, [aria-selected='true']),
+html[data-theme='light'] :is(
+  .courses-table, .drivers-table, .documents-table, .customers-table,
+  .vehicles-table, .payments-table, .complaints-table
+) tbody tr:is(:focus, :focus-visible, .is-selected, [aria-selected='true']) td {
+  color: #173226 !important;
+  background: #e4f5eb !important;
+}
+
+html[data-theme='dark'] :is(
+  .courses-table, .drivers-table, .documents-table, .customers-table,
+  .vehicles-table, .payments-table, .complaints-table
+) tbody tr:is(:focus, :focus-visible, .is-selected, [aria-selected='true']),
+html[data-theme='dark'] :is(
+  .courses-table, .drivers-table, .documents-table, .customers-table,
+  .vehicles-table, .payments-table, .complaints-table
+) tbody tr:is(:focus, :focus-visible, .is-selected, [aria-selected='true']) td {
+  color: #eff8f3 !important;
+  background: #1c382a !important;
+}
+
+html[data-theme='dark'] .settings-language-option.is-selected,
+html[data-theme='dark'] .settings-appearance-options button.is-selected {
+  color: #bcf4d5 !important;
+  background: #1b392a !important;
+  border-color: rgba(76, 219, 146, 0.38) !important;
+}
+
+html[data-theme='light'] .settings-language-option.is-selected,
+html[data-theme='light'] .settings-appearance-options button.is-selected {
+  color: #006c36 !important;
+  background: #e4f5eb !important;
+  border-color: rgba(0, 129, 64, 0.25) !important;
+}
+
+/* Sidebar toggle remains clearly visible on the green rail in both themes. */
+html[data-theme='light'] .sidebar-collapse-button,
+html[data-theme='dark'] .sidebar-collapse-button {
+  color: #ffffff !important;
+  background: rgba(0, 74, 37, 0.38) !important;
+  border-color: rgba(255, 255, 255, 0.38) !important;
+  box-shadow: 0 4px 12px rgba(0, 50, 25, 0.18) !important;
+}
+
+html[data-theme='light'] .sidebar-collapse-button .collapse-dot,
+html[data-theme='dark'] .sidebar-collapse-button .collapse-dot {
+  background: #ffffff !important;
+  opacity: 1 !important;
+}
+
+html[data-theme='light'] .sidebar-collapse-button:hover,
+html[data-theme='dark'] .sidebar-collapse-button:hover,
+html[data-theme='light'] .sidebar-collapse-button:focus-visible,
+html[data-theme='dark'] .sidebar-collapse-button:focus-visible {
+  color: #006c36 !important;
+  background: #dff5e8 !important;
+  border-color: #ffffff !important;
+}
+
+html[data-theme='light'] .sidebar-collapse-button:hover .collapse-dot,
+html[data-theme='dark'] .sidebar-collapse-button:hover .collapse-dot,
+html[data-theme='light'] .sidebar-collapse-button:focus-visible .collapse-dot,
+html[data-theme='dark'] .sidebar-collapse-button:focus-visible .collapse-dot {
+  background: #006c36 !important;
+}
+
+/* Profile editor follows the dark surface system. */
+html[data-theme='dark'] .profile-edit-modal--modern {
+  color: #f3f7f4 !important;
+  background: #121a16 !important;
+  border-color: rgba(214, 235, 222, 0.13) !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.52) !important;
+}
+
+html[data-theme='dark'] .profile-edit-modal :is(h2, h3, strong, label) {
+  color: #f3f7f4 !important;
+}
+
+html[data-theme='dark'] .profile-edit-modal :is(p, small, .profile-edit-field > span) {
+  color: #93a39a !important;
+}
+
+html[data-theme='dark'] .profile-edit-input,
+html[data-theme='dark'] .profile-edit-input.is-readonly {
+  color: #eaf3ed !important;
+  background: #17211c !important;
+  border-color: rgba(214, 235, 222, 0.13) !important;
+  box-shadow: none !important;
+}
+
+html[data-theme='dark'] .profile-edit-input:hover {
+  background: #1a2720 !important;
+  border-color: rgba(76, 219, 146, 0.30) !important;
+}
+
+html[data-theme='dark'] .profile-edit-input:focus-within {
+  background: #18251e !important;
+  border-color: #35d785 !important;
+  box-shadow: 0 0 0 3px rgba(53, 215, 133, 0.12) !important;
+}
+
+html[data-theme='dark'] .profile-edit-input input,
+html[data-theme='dark'] .profile-edit-input.is-readonly input,
+html[data-theme='dark'] .profile-edit-input input:disabled {
+  color: #edf5f0 !important;
+  background: transparent !important;
+  -webkit-text-fill-color: #edf5f0 !important;
+  opacity: 1 !important;
+}
+
+html[data-theme='dark'] .profile-edit-input > svg {
+  color: #7f9387 !important;
+}
+
+html[data-theme='dark'] .profile-role-notice {
+  color: #d7e8de !important;
+  background: rgba(41, 200, 120, 0.08) !important;
+  border-color: rgba(41, 200, 120, 0.19) !important;
+}
+
+html[data-theme='dark'] .profile-role-notice strong { color: #dff8ea !important; }
+html[data-theme='dark'] .profile-role-notice span { color: #91aa9b !important; }
+
+html[data-theme='dark'] .security-modal-close,
+html[data-theme='dark'] .profile-modern-close {
+  color: #b8c8be !important;
+  background: #1a251f !important;
+  border-color: rgba(214, 235, 222, 0.14) !important;
+}
+
+html[data-theme='dark'] .security-modal-close:hover,
+html[data-theme='dark'] .profile-modern-close:hover {
+  color: #f3f7f4 !important;
+  background: #24332b !important;
+}
+
+html[data-theme='dark'] .profile-edit-modal .security-modal-actions {
+  border-color: rgba(214, 235, 222, 0.10) !important;
+}
+
+html[data-theme='dark'] .profile-edit-modal .security-modal-actions button[type='button'] {
+  color: #c3d1c8 !important;
+  background: #1a251f !important;
+  border-color: rgba(214, 235, 222, 0.14) !important;
+}
+
+html[data-theme='dark'] .profile-edit-modal .security-modal-actions button[type='submit'] {
+  color: #06130c !important;
+  background: #35d785 !important;
+  border-color: #35d785 !important;
+}
+
+html[data-theme='dark'] .profile-photo-change-button {
+  color: #65e4a4 !important;
+  background: rgba(41, 200, 120, 0.09) !important;
+  border-color: rgba(41, 200, 120, 0.28) !important;
+}
+
+html[data-theme='dark'] .profile-photo-remove-button {
+  color: #ff9d9d !important;
+  background: rgba(235, 83, 83, 0.08) !important;
+  border-color: rgba(235, 83, 83, 0.24) !important;
+}
+
+/* Final table interaction override. Every interactive state uses the same
+   subtle green surface as the dashboard pending-action hover. */
+html[data-theme='dark'] table tbody tr:hover,
+html[data-theme='dark'] table tbody tr:hover > td,
+html[data-theme='dark'] table tbody tr:active,
+html[data-theme='dark'] table tbody tr:active > td,
+html[data-theme='dark'] table tbody tr:focus,
+html[data-theme='dark'] table tbody tr:focus > td,
+html[data-theme='dark'] table tbody tr:focus-visible,
+html[data-theme='dark'] table tbody tr:focus-visible > td,
+html[data-theme='dark'] table tbody tr:focus-within,
+html[data-theme='dark'] table tbody tr:focus-within > td,
+html[data-theme='dark'] table tbody tr.selected,
+html[data-theme='dark'] table tbody tr.selected > td,
+html[data-theme='dark'] table tbody tr.is-selected,
+html[data-theme='dark'] table tbody tr.is-selected > td,
+html[data-theme='dark'] table tbody tr[aria-selected='true'],
+html[data-theme='dark'] table tbody tr[aria-selected='true'] > td {
+  color: #eff8f3 !important;
+  background: rgba(41, 200, 120, 0.075) !important;
+  border-bottom-color: rgba(76, 219, 146, 0.18) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+html[data-theme='dark'] table tbody tr:is(
+  :hover, :active, :focus, :focus-visible, :focus-within,
+  .selected, .is-selected, [aria-selected='true']
+) :is(strong, span, a) {
+  color: #eff8f3 !important;
+}
+
+/* The legacy table rules have unusually high specificity. Anchor the dark
+   interaction state to the application root so they cannot turn rows white. */
+html[data-theme='dark'] body #root .admin-layout .main-content table tbody tr:is(
+  :hover, :active, :focus, :focus-visible, :focus-within,
+  .selected, .is-selected, [aria-selected='true']
+),
+html[data-theme='dark'] body #root .admin-layout .main-content table tbody tr:is(
+  :hover, :active, :focus, :focus-visible, :focus-within,
+  .selected, .is-selected, [aria-selected='true']
+) > td {
+  color: #eff8f3 !important;
+  background: #163024 !important;
+  border-color: rgba(76, 219, 146, 0.18) !important;
+  box-shadow: none !important;
+}
+
+html[data-theme='dark'] body #root .admin-layout .main-content table tbody tr:is(
+  :hover, :active, :focus, :focus-visible, :focus-within,
+  .selected, .is-selected, [aria-selected='true']
+) :is(strong, span, a) {
+  color: #eff8f3 !important;
+  -webkit-text-fill-color: #eff8f3 !important;
+}
+
+/* Dark sidebar: near-black green graphite, with DJINA green as an accent. */
+html[data-theme='dark'] .sidebar {
+  color: #eaf4ee !important;
+  background:
+    radial-gradient(circle at 18% 5%, rgba(41, 200, 120, 0.10), transparent 30%),
+    linear-gradient(180deg, #101c16 0%, #0b1510 100%) !important;
+  border-color: rgba(76, 219, 146, 0.16) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.38) !important;
+}
+
+html[data-theme='dark'] .sidebar-subtitle,
+html[data-theme='dark'] .admin-card-copy span {
+  color: #82988b !important;
+}
+
+html[data-theme='dark'] .nav-item,
+html[data-theme='dark'] .admin-layout.sidebar-collapsed .nav-item {
+  color: #b8cbbf !important;
+  background: transparent !important;
+}
+
+html[data-theme='dark'] .nav-item:hover,
+html[data-theme='dark'] .admin-layout.sidebar-collapsed .nav-item:hover {
+  color: #eff8f3 !important;
+  background: rgba(41, 200, 120, 0.09) !important;
+}
+
+html[data-theme='dark'] .nav-item.is-active,
+html[data-theme='dark'] .admin-layout.sidebar-collapsed .nav-item.is-active {
+  color: #a9f0ca !important;
+  background: rgba(41, 200, 120, 0.16) !important;
+  box-shadow:
+    inset 3px 0 0 #35d785,
+    inset 0 0 0 1px rgba(76, 219, 146, 0.13) !important;
+}
+
+html[dir='rtl'][data-theme='dark'] .nav-item.is-active,
+html[dir='rtl'][data-theme='dark'] .admin-layout.sidebar-collapsed .nav-item.is-active {
+  box-shadow:
+    inset -3px 0 0 #35d785,
+    inset 0 0 0 1px rgba(76, 219, 146, 0.13) !important;
+}
+
+html[data-theme='dark'] .admin-card {
+  border-top-color: rgba(214, 235, 222, 0.11) !important;
+}
+
+html[data-theme='dark'] .admin-card-copy strong {
+  color: #eff8f3 !important;
+}
+
+html[data-theme='dark'] .sidebar-collapse-button {
+  color: #9ceabd !important;
+  background: rgba(41, 200, 120, 0.10) !important;
+  border-color: rgba(76, 219, 146, 0.30) !important;
+  box-shadow: none !important;
+}
+
+html[data-theme='dark'] .sidebar-collapse-button .collapse-dot {
+  background: #75e5a8 !important;
+}
+
+html[data-theme='dark'] .sidebar-collapse-button:hover,
+html[data-theme='dark'] .sidebar-collapse-button:focus-visible {
+  color: #06130c !important;
+  background: #4cdb92 !important;
+  border-color: #4cdb92 !important;
+}
+
+html[data-theme='dark'] .sidebar-collapse-button:hover .collapse-dot,
+html[data-theme='dark'] .sidebar-collapse-button:focus-visible .collapse-dot {
+  background: #06130c !important;
+}
+
+/* Dashboard period popover in dark mode. */
+html[data-theme='dark'] .dashboard-period-menu-modern {
+  color: #eaf4ee !important;
+  background: #17211c !important;
+  border-color: rgba(214, 235, 222, 0.14) !important;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.48) !important;
+}
+
+html[data-theme='dark'] .dashboard-period-menu-heading {
+  border-bottom-color: rgba(214, 235, 222, 0.10) !important;
+}
+
+html[data-theme='dark'] .dashboard-period-menu-heading span {
+  color: #edf5f0 !important;
+}
+
+html[data-theme='dark'] .dashboard-period-menu-heading small {
+  color: #82958a !important;
+}
+
+html[data-theme='dark'] .dashboard-period-option-modern {
+  color: #aebfb5 !important;
+  background: transparent !important;
+}
+
+html[data-theme='dark'] .dashboard-period-option-modern:hover {
+  color: #eff8f3 !important;
+  background: rgba(41, 200, 120, 0.09) !important;
+}
+
+html[data-theme='dark'] .dashboard-period-option-modern.is-selected {
+  color: #b9f3d3 !important;
+  background: rgba(41, 200, 120, 0.16) !important;
+}
+
+html[data-theme='dark'] .dashboard-period-check {
+  color: #07130c !important;
+  background: #35d785 !important;
 }

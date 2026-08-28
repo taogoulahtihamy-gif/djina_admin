@@ -1272,7 +1272,9 @@ function Topbar({
                     {
                       notifications.total
                     }{' '}
-                    à traiter
+                    {t(
+                      'common.toProcess',
+                    )}
                   </span>
                 )}
               </div>
@@ -1284,18 +1286,24 @@ function Topbar({
                   loadNotifications
                 }
               >
-                Actualiser
+                {t(
+                  'common.refresh',
+                )}
               </button>
             </div>
 
 
             {notificationsLoading ? (
               <div className="notifications-empty">
-                Chargement…
+                {t(
+                  'common.loading',
+                )}
               </div>
             ) : notificationsError ? (
               <div className="notifications-empty notifications-empty--error">
-                Impossible de charger les notifications.
+                {t(
+                  'common.notificationsLoadError',
+                )}
               </div>
             ) : notifications.items
                 .length === 0 ? (
