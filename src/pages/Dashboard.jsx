@@ -8,6 +8,7 @@ import {
 
 import {
   Banknote,
+  BadgePercent,
   CalendarRange,
   CarFront,
   Check,
@@ -20,6 +21,7 @@ import {
   Route,
   SlidersHorizontal,
   Users,
+  WalletCards,
 } from 'lucide-react'
 
 import {
@@ -68,6 +70,12 @@ import OperationalStat from '../components/dashboard/OperationalStat'
 import PendingActions from '../components/dashboard/PendingActions'
 import RecentCourses from '../components/dashboard/RecentCourses'
 import StatCard from '../components/dashboard/StatCard'
+import {
+  getCommissions,
+  getCommissionStats,
+  syncCourseCommissions,
+  useCommissionRevision,
+} from '../services/commissionService'
 
 
 const PERIOD_OPTIONS = [
@@ -131,6 +139,7 @@ function isWithinPeriod(
 
 
 function Dashboard() {
+  useCommissionRevision()
   const {
     user,
   } = useAuth()
@@ -620,22 +629,9 @@ function Dashboard() {
     )
 
 
-  const filteredPayments =
-    useMemo(
-      () =>
-        payments.filter(
-          (payment) =>
-            isWithinPeriod(
-              payment.paid_at ||
-                payment.created_at,
-              periodStart,
-            ),
-        ),
-      [
-        payments,
-        periodStart,
-      ],
-    )
+  useEffect(() => {
+    if (courses.length) syncCourseCommissions(courses)
+  }, [courses])
 
 
   /* =====================================================
@@ -696,34 +692,10 @@ function Dashboard() {
      REVENUS
   ===================================================== */
 
-  const periodRevenue =
-    useMemo(
-      () =>
-        filteredPayments
-          .filter(
-            (payment) =>
-              payment.status ===
-              'paid',
-          )
-          .reduce(
-            (
-              total,
-              payment,
-            ) =>
-              total +
-              Number(
-                payment.final_amount ??
-                  payment.amount ??
-                  0,
-              ),
-            0,
-          ),
-      [
-        filteredPayments,
-      ],
-    )
-
-
+  const filteredCourseIds = new Set(filteredCourses.map((course) => String(course.id)))
+  const commissionTotals = getCommissionStats(
+    getCommissions().filter((commission) => filteredCourseIds.has(String(commission.courseId))),
+  )
   /* =====================================================
      CARTES PRINCIPALES
   ===================================================== */
@@ -796,29 +768,20 @@ function Dashboard() {
     },
 
     {
-      title:
-        t(
-          'dashboard.primaryStats.revenue.title',
-        ),
-
-      value:
-        isLoading
-          ? '—'
-          : formatNumber(
-              periodRevenue,
-            ),
-
-      unit:
-        'FCFA',
-
-      description:
-        `${t(
-          'dashboard.primaryStats.revenue.description',
-        )} · ${selectedPeriodLabel}`,
-
-      icon:
-        Banknote,
+      title: t('dashboard.primaryStats.revenue.title'),
+      value: isLoading ? '—' : formatNumber(commissionTotals.gross),
+      unit: 'FCFA',
+      description: `${t('dashboard.primaryStats.revenue.description')} · ${selectedPeriodLabel}`,
+      icon: Banknote,
     },
+
+  ]
+
+  const financialStats = [
+    { title: t('dashboard.commission.generated'), value: isLoading ? '—' : formatNumber(commissionTotals.generated), unit: 'FCFA', description: selectedPeriodLabel, icon: BadgePercent },
+    { title: t('dashboard.commission.collected'), value: isLoading ? '—' : formatNumber(commissionTotals.paid), unit: 'FCFA', description: selectedPeriodLabel, icon: Check },
+    { title: t('dashboard.commission.pending'), value: isLoading ? '—' : formatNumber(commissionTotals.pending), unit: 'FCFA', description: selectedPeriodLabel, icon: Clock3 },
+    { title: t('dashboard.commission.driverNet'), value: isLoading ? '—' : formatNumber(commissionTotals.net), unit: 'FCFA', description: selectedPeriodLabel, icon: WalletCards },
   ]
 
 
@@ -1156,6 +1119,11 @@ function Dashboard() {
             ),
           )}
         </section>
+
+        <section className="commission-dashboard-grid" aria-label={t('dashboard.commission.aria')}>
+          {financialStats.map((stat) => <StatCard {...stat} key={stat.title} />)}
+        </section>
+        <p className="dashboard-commission-note">{t('dashboard.commission.note')}</p>
 
 
         <section

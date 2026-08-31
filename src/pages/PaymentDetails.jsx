@@ -6,6 +6,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import {
   ArrowLeft,
+  BadgePercent,
   Banknote,
   CalendarDays,
   CheckCircle2,
@@ -18,6 +19,12 @@ import {
 
 import { getPaymentById } from '../services/paymentService'
 import Spinner from '../components/Spinner'
+import {
+  calculatePaymentCommission,
+  getCommissionByCourseId,
+  getGrossAmount,
+  useCommissionRate,
+} from '../services/commissionService'
 
 function formatCourseId(id) {
   if (!id) return '—'
@@ -29,6 +36,7 @@ function PaymentDetails() {
   const { paymentId } = useParams()
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
+  const commissionRate = useCommissionRate()
 
   const [payment, setPayment] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -162,6 +170,16 @@ function PaymentDetails() {
     )
   }
 
+  const storedCommission = getCommissionByCourseId(payment.course)
+  const calculatedSplit = calculatePaymentCommission(payment, commissionRate)
+  const paymentSplit = storedCommission ? {
+    gross: storedCommission.grossAmount,
+    rate: storedCommission.commissionRate,
+    commission: storedCommission.commissionAmount,
+    net: storedCommission.driverNetAmount,
+  } : calculatedSplit
+  const commissionStatus = storedCommission?.status || (payment.status === 'paid' ? 'pending' : null)
+
   return (
     <section className="payment-details-page">
       <div className="payment-details-topline">
@@ -270,6 +288,25 @@ function PaymentDetails() {
       </section>
 
       <div className="payment-details-grid">
+        <section className="payment-detail-card payment-split-card">
+          <div className="payment-detail-card-heading">
+            <BadgePercent size={18} />
+            <div>
+              <h3>{t('paymentDetails.split.title')}</h3>
+              <p>{t('paymentDetails.split.description')}</p>
+            </div>
+          </div>
+          <div className="payment-detail-list financial-detail-list">
+            <div><span>{t('commission.coursePrice')}</span><strong>{formatMoney(paymentSplit.gross, payment.currency)}</strong></div>
+            <div><span>{t('commission.rateApplied')}</span><strong>{paymentSplit.rate}%</strong></div>
+            <div><span>{t('commission.djinaCommission')}</span><strong>{formatMoney(paymentSplit.commission, payment.currency)}</strong></div>
+            <div><span>{t('commission.driverNet')}</span><strong>{formatMoney(paymentSplit.net, payment.currency)}</strong></div>
+            <div><span>{t('commission.status')}</span>{commissionStatus ? <strong className={`commission-status-badge is-${commissionStatus}`}>{t(`commission.statuses.${commissionStatus}`)}</strong> : <strong>—</strong>}</div>
+            {storedCommission?.paidAt && <div><span>{t('commission.paidAt')}</span><strong>{formatDate(storedCommission.paidAt)}</strong></div>}
+            {storedCommission?.settlementReference && <div><span>{t('commission.reference')}</span><strong>{storedCommission.settlementReference}</strong></div>}
+          </div>
+        </section>
+
         <section className="payment-detail-card">
           <div className="payment-detail-card-heading">
             <Receipt size={18} />
@@ -301,7 +338,7 @@ function PaymentDetails() {
 
               <strong>
                 {formatMoney(
-                  payment.final_amount,
+                  getGrossAmount(payment),
                   payment.currency,
                 )}
               </strong>

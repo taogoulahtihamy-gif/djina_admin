@@ -18,6 +18,12 @@ import {
 } from '../services/paymentService'
 
 import Spinner from '../components/Spinner'
+import {
+  calculatePaymentCommission,
+  getCommissionByCourseId,
+  getGrossAmount,
+  useCommissionRate,
+} from '../services/commissionService'
 
 function formatCourseId(id) {
   if (!id) {
@@ -30,6 +36,7 @@ function formatCourseId(id) {
 function Payments() {
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
+  const commissionRate = useCommissionRate()
 
   const [payments, setPayments] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -147,9 +154,7 @@ function Payments() {
       paidPayments.reduce(
         (sum, payment) =>
           sum +
-          Number(
-            payment.final_amount || 0,
-          ),
+          getGrossAmount(payment),
         0,
       )
 
@@ -480,6 +485,10 @@ function Payments() {
                     )}
                   </th>
 
+                  <th className="payment-commission-column">{t('payments.table.commission')}</th>
+                  <th className="payment-net-column">{t('payments.table.driverNet')}</th>
+                  <th>{t('payments.table.commissionStatus')}</th>
+
                   <th>
                     {t(
                       'payments.table.status',
@@ -506,7 +515,7 @@ function Payments() {
                 {filteredPayments.length ===
                 0 ? (
                   <tr>
-                    <td colSpan="8">
+                    <td colSpan="11">
                       <div className="payments-table-state">
                         <CreditCard
                           size={25}
@@ -539,7 +548,16 @@ function Payments() {
                   </tr>
                 ) : (
                   filteredPayments.map(
-                    (payment) => (
+                    (payment) => {
+                      const storedCommission = getCommissionByCourseId(payment.course)
+                      const fallback = calculatePaymentCommission(payment, commissionRate)
+                      const commissionStatus = storedCommission?.status || (payment.status === 'paid' ? 'pending' : null)
+                      const split = storedCommission ? {
+                        gross: storedCommission.grossAmount,
+                        commission: storedCommission.commissionAmount,
+                        net: storedCommission.driverNetAmount,
+                      } : fallback
+                      return (
                       <tr key={payment.id}>
                         <td>
                           <div className="payment-identity-cell">
@@ -607,11 +625,21 @@ function Payments() {
                         <td>
                           <strong className="payment-amount">
                             {formatMoney(
-                              payment.final_amount,
+                              getGrossAmount(payment),
                               payment.currency,
                             )}
                           </strong>
                         </td>
+
+                        <td className="payment-commission-column">
+                          <strong className="payment-commission-amount">{formatMoney(split.commission, payment.currency)}</strong>
+                        </td>
+
+                        <td className="payment-net-column">
+                          <strong className="payment-net-amount">{formatMoney(split.net, payment.currency)}</strong>
+                        </td>
+
+                        <td>{commissionStatus ? <span className={`commission-status-badge is-${commissionStatus}`}>{t(`commission.statuses.${commissionStatus}`)}</span> : '—'}</td>
 
                         <td>
                           <span
@@ -691,7 +719,8 @@ function Payments() {
                           </button>
                         </td>
                       </tr>
-                    ),
+                      )
+                    },
                   )
                 )}
               </tbody>

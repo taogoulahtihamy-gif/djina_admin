@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
   ArrowLeft,
+  BadgePercent,
   CalendarDays,
   CarFront,
   CircleDollarSign,
@@ -22,6 +23,11 @@ import {
 } from '../services/courseService'
 
 import Spinner from '../components/Spinner'
+import {
+  getCommissionByCourseId,
+  syncCourseCommissions,
+  useCommissionRevision,
+} from '../services/commissionService'
 
 function formatCourseId(id) {
   return `DJ-${String(id).padStart(5, '0')}`
@@ -31,6 +37,7 @@ function CourseDetails() {
   const { courseId } = useParams()
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
+  useCommissionRevision()
 
   const [course, setCourse] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -111,6 +118,10 @@ function CourseDetails() {
     loadCourse()
   }, [courseId, t])
 
+  useEffect(() => {
+    if (course) syncCourseCommissions([course])
+  }, [course])
+
   const timeline = useMemo(() => {
     if (!course) {
       return []
@@ -182,6 +193,8 @@ function CourseDetails() {
       </section>
     )
   }
+
+  const courseCommission = getCommissionByCourseId(course.id)
 
   const customerName =
     [
@@ -663,6 +676,28 @@ function CourseDetails() {
               </strong>
             </div>
           </div>
+        </section>
+
+        <section className="course-detail-card course-financial-card">
+          <div className="course-detail-card-heading">
+            <BadgePercent size={18} />
+            <div>
+              <h3>{t('courseDetails.financial.title')}</h3>
+              <p>{t('courseDetails.financial.description')}</p>
+            </div>
+          </div>
+
+          {course.status === 'completed' ? (
+            <div className="course-detail-list financial-detail-list">
+              <div><span>{t('commission.coursePrice')}</span><strong>{formatMoney(courseCommission?.grossAmount)}</strong></div>
+              <div><span>{t('commission.rateApplied')}</span><strong>{courseCommission?.commissionRate ?? 0}%</strong></div>
+              <div><span>{t('commission.djinaCommission')}</span><strong>{formatMoney(courseCommission?.commissionAmount)}</strong></div>
+              <div><span>{t('commission.driverNet')}</span><strong>{formatMoney(courseCommission?.driverNetAmount)}</strong></div>
+              <div><span>{t('commission.status')}</span><strong className={`commission-status-badge is-${courseCommission?.status || 'pending'}`}>{t(`commission.statuses.${courseCommission?.status || 'pending'}`)}</strong></div>
+            </div>
+          ) : (
+            <p className="commission-pending-note">{t('courseDetails.financial.pending')}</p>
+          )}
         </section>
       </div>
 

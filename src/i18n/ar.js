@@ -153,11 +153,28 @@ const ar = {
       version: 'الإصدار',
       environment: 'البيئة',
       development: 'التطوير',
+      commission: {
+        title: 'عمولة جينا', description: 'إعداد نسبة العمولة المطبقة على الرحلات المكتملة.',
+        currentRate: 'النسبة الحالية', save: 'حفظ', note: 'تُطبق هذه النسبة على الرحلات المكتملة القادمة.',
+        saved: 'تم حفظ نسبة العمولة.', readOnly: 'يمكن للمسؤول الأعلى فقط تعديل هذه النسبة.',
+      },
+    },
+
+    commission: {
+      grossRevenue: 'إجمالي الإيرادات', djinaCommission: 'عمولة جينا', driverNet: 'صافي دخل السائق',
+      coursePrice: 'سعر الرحلة', rate: 'نسبة عمولة جينا', rateApplied: 'النسبة المطبقة', status: 'حالة العمولة',
+      totalGenerated: 'إجمالي العمولة المتولدة', toSettle: 'العمولة المستحقة لجينا', paid: 'العمولة المدفوعة',
+      paidAt: 'تاريخ الدفع', reference: 'مرجع الدفع', statuses: { pending: 'قيد الانتظار', paid: 'مدفوعة' },
     },
 
     dashboard: {
       createAdministrator:
         'إنشاء مسؤول',
+      commission: {
+        gross: 'إجمالي حجم الرحلات', generated: 'العمولات المتولدة', collected: 'إيرادات جينا المحصلة',
+        pending: 'العمولات المعلقة', driverNet: 'صافي إيرادات السائقين', aria: 'المؤشرات المالية',
+        note: 'تتضمن إيرادات جينا فقط العمولات التي تم تأكيد دفعها.',
+      },
 
       primaryStats: {
         customers: {
@@ -179,9 +196,9 @@ const ar = {
         },
 
         revenue: {
-          title: 'الإيرادات',
+          title: 'إجمالي حجم الرحلات',
           description:
-            'المدفوعات المحصلة',
+            'الرحلات المكتملة',
         },
       },
 
@@ -402,6 +419,7 @@ const ar = {
         final: 'السعر النهائي',
         notDefined: 'غير محدد',
       },
+      financial: { title: 'التوزيع المالي', description: 'عمولة جينا ودخل السائق', pending: 'سيتم إنشاء العمولة عند اكتمال الرحلة.' },
 
       cancellation: {
         title: 'معلومات الإلغاء',
@@ -583,6 +601,18 @@ const ar = {
         active: 'قيد التنفيذ',
         cancelled: 'ملغاة',
         latestCourse: 'آخر رحلة',
+      },
+      commission: {
+        title: 'الإيرادات والعمولات', description: 'التوزيع المالي للرحلات المكتملة',
+        history: 'سجل العمولات', empty: 'لم تنتج أي رحلة مكتملة عمولة بعد.',
+        columns: { course: 'الرحلة', date: 'التاريخ', route: 'المسار', price: 'سعر الرحلة', rate: 'النسبة' },
+        confirmSettlement: 'تأكيد الدفع', settlementSuccess: 'تم تأكيد الدفع.',
+      },
+      settlement: {
+        title: 'تأكيد الدفع', close: 'إغلاق', pendingCount: 'العمولات المحددة', total: 'إجمالي المبلغ المستحق',
+        courses: 'الرحلات المعنية', mode: 'طريقة الدفع', reference: 'مرجع الدفع', date: 'تاريخ الدفع',
+        confirm: 'تأكيد الدفع', cancel: 'إلغاء',
+        modes: { cash: 'نقداً', airtel: 'Airtel Money', moov: 'Moov Money', bank: 'تحويل بنكي' },
       },
     },
 
@@ -958,7 +988,10 @@ const ar = {
         payment: 'الدفع',
         course: 'الرحلة',
         mode: 'الطريقة',
-        amount: 'المبلغ',
+        amount: 'المبلغ الإجمالي',
+        commission: 'العمولة',
+        driverNet: 'صافي السائق',
+        commissionStatus: 'حالة العمولة',
         status: 'الحالة',
         date: 'التاريخ',
         actions: 'الإجراءات',
@@ -1019,6 +1052,7 @@ const ar = {
         description:
           'تفاصيل المعاملة',
       },
+      split: { title: 'توزيع الدفع', description: 'المبلغ المدفوع والعمولة ودخل السائق', paidAmount: 'المبلغ المدفوع' },
 
       fields: {
         amount: 'المبلغ',

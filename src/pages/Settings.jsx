@@ -6,6 +6,7 @@ import {
 
 import {
   Bell,
+  BadgePercent,
   Check,
   ChevronRight,
   Eye,
@@ -49,6 +50,11 @@ import {
   applyAppearance,
   getAppearance,
 } from '../services/themeService'
+import {
+  saveCommissionRate,
+  useCommissionRate,
+} from '../services/commissionService'
+import { canCreateAdministrator } from '../utils/adminPermissions'
 
 
 const LANGUAGES = [
@@ -143,6 +149,14 @@ function Settings() {
     user,
     logout,
   } = useAuth()
+
+  const commissionRate = useCommissionRate()
+  const [commissionInput, setCommissionInput] = useState(commissionRate)
+  const [commissionSaved, setCommissionSaved] = useState(false)
+
+  useEffect(() => {
+    setCommissionInput(commissionRate)
+  }, [commissionRate])
 
 
   /* =====================================================
@@ -304,24 +318,7 @@ function Settings() {
   ===================================================== */
 
   const isSuperAdmin =
-    useMemo(() => {
-      if (!user) {
-        return false
-      }
-
-      return (
-        user.is_superuser === true ||
-        user.isSuperuser === true ||
-        user.admin_type ===
-          'super' ||
-        user.adminType ===
-          'super' ||
-        user.role ===
-          'super_admin' ||
-        user.role ===
-          'SUPER_ADMIN'
-      )
-    }, [user])
+    useMemo(() => canCreateAdministrator(user), [user])
 
 
   /* =====================================================
@@ -897,6 +894,14 @@ function Settings() {
      RENDU
   ===================================================== */
 
+  const handleCommissionSave = (event) => {
+    event.preventDefault()
+    const savedRate = saveCommissionRate(commissionInput)
+    setCommissionInput(savedRate)
+    setCommissionSaved(true)
+    window.setTimeout(() => setCommissionSaved(false), 3000)
+  }
+
   return (
     <section className="settings-page">
       <div className="settings-grid">
@@ -995,6 +1000,61 @@ function Settings() {
               }
             </strong>
           </div>
+        </section>
+
+        <section className="settings-card settings-commission-card">
+          <div className="settings-card-heading">
+            <span className="settings-card-icon">
+              <BadgePercent size={18} aria-hidden="true" />
+            </span>
+            <div>
+              <h2>{t('settings.commission.title')}</h2>
+              <p>{t('settings.commission.description')}</p>
+            </div>
+          </div>
+
+          <form className="settings-commission-form" onSubmit={handleCommissionSave}>
+            <label htmlFor="commission-rate">
+              <span>{t('settings.commission.currentRate')}</span>
+              <div className="settings-commission-input-wrap">
+                <input
+                  id="commission-rate"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="0.01"
+                  value={commissionInput}
+                  disabled={!isSuperAdmin}
+                  onChange={(event) => {
+                    setCommissionInput(event.target.value)
+                    setCommissionSaved(false)
+                  }}
+                />
+                <span>%</span>
+              </div>
+            </label>
+
+            {isSuperAdmin && (
+              <button type="submit" className="settings-commission-save">
+                <Check size={16} aria-hidden="true" />
+                {t('settings.commission.save')}
+              </button>
+            )}
+          </form>
+
+          <p className="settings-commission-note">
+            {t('settings.commission.note')}
+          </p>
+          {!isSuperAdmin && (
+            <p className="settings-commission-readonly">
+              {t('settings.commission.readOnly')}
+            </p>
+          )}
+          {commissionSaved && (
+            <p className="settings-commission-success" role="status">
+              {t('settings.commission.saved')}
+            </p>
+          )}
         </section>
 
 

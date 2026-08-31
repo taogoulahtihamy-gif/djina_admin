@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next'
 import {
   ArrowLeft,
   Bike,
+  BadgePercent,
+  CheckCircle2,
   CarFront,
   ChevronRight,
   Mail,
@@ -15,12 +17,22 @@ import {
   Star,
   UserRound,
   Wifi,
+  X,
 } from 'lucide-react'
 
 import { getDriverById } from '../services/driverService'
 import { getVehicles } from '../services/vehicleService'
 import { getCourses } from '../services/courseService'
 import Spinner from '../components/Spinner'
+import {
+  confirmCommissionSettlement,
+  getCommissionStats,
+  getDriverCommissions,
+  syncCourseCommissions,
+  useCommissionRevision,
+} from '../services/commissionService'
+import { useAuth } from '../context/authContext'
+import { canCreateAdministrator } from '../utils/adminPermissions'
 
 function formatCourseId(id) {
   return `DJ-${String(id).padStart(5, '0')}`
@@ -30,6 +42,8 @@ function DriverDetails() {
   const { driverId } = useParams()
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
+  const { user } = useAuth()
+  useCommissionRevision()
 
   const [driver, setDriver] = useState(null)
   const [vehicles, setVehicles] = useState([])
@@ -42,6 +56,12 @@ function DriverDetails() {
     useState(true)
 
   const [error, setError] = useState('')
+  const [settlementOpen, setSettlementOpen] = useState(false)
+  const [selectedCommissionIds, setSelectedCommissionIds] = useState([])
+  const [settlementMode, setSettlementMode] = useState('cash')
+  const [settlementReference, setSettlementReference] = useState('')
+  const [settlementDate, setSettlementDate] = useState(() => new Date().toISOString().slice(0, 10))
+  const [settlementSuccess, setSettlementSuccess] = useState(false)
 
   const locale =
     i18n.resolvedLanguage === 'ar'
@@ -60,6 +80,13 @@ function DriverDetails() {
     return `${new Intl.NumberFormat(
       locale,
     ).format(amount)} FCFA`
+  }
+
+  const formatDate = (value) => {
+    const date = value ? new Date(value) : null
+    return date && !Number.isNaN(date.getTime())
+      ? new Intl.DateTimeFormat(locale, { day: '2-digit', month: '2-digit', year: 'numeric' }).format(date)
+      : '—'
   }
 
   const getDriverName = (value) =>
@@ -133,6 +160,10 @@ function DriverDetails() {
 
     loadVehicles()
   }, [])
+
+  useEffect(() => {
+    if (courses.length) syncCourseCommissions(courses)
+  }, [courses])
 
   useEffect(() => {
     const loadCourses = async () => {
@@ -224,7 +255,34 @@ function DriverDetails() {
     driverCourses.filter(
       (course) =>
         course.status === 'completed',
-    ).length
+    )
+
+  const driverCommissions = getDriverCommissions(driver.id)
+  const commissionTotals = getCommissionStats(driverCommissions)
+  const pendingCommissions = driverCommissions.filter((item) => item.status === 'pending')
+  const selectedCommissions = pendingCommissions.filter((item) => selectedCommissionIds.includes(item.id))
+  const selectedTotal = selectedCommissions.reduce((sum, item) => sum + (Number(item.commissionAmount) || 0), 0)
+
+  const openSettlement = () => {
+    setSelectedCommissionIds(pendingCommissions.map((item) => item.id))
+    setSettlementMode('cash')
+    setSettlementReference('')
+    setSettlementDate(new Date().toISOString().slice(0, 10))
+    setSettlementOpen(true)
+  }
+
+  const handleSettlement = (event) => {
+    event.preventDefault()
+    if (!canCreateAdministrator(user) || selectedCommissionIds.length === 0) return
+    confirmCommissionSettlement(selectedCommissionIds, {
+      settlementMode,
+      settlementReference,
+      paidAt: new Date(`${settlementDate}T12:00:00`).toISOString(),
+    })
+    setSettlementOpen(false)
+    setSettlementSuccess(true)
+    window.setTimeout(() => setSettlementSuccess(false), 3500)
+  }
 
   const cancelledCourses =
     driverCourses.filter(
@@ -727,7 +785,7 @@ function DriverDetails() {
                   </span>
 
                   <strong>
-                    {completedCourses}
+                    {completedCourses.length}
                   </strong>
                 </div>
 
@@ -823,7 +881,99 @@ function DriverDetails() {
             </div>
           )}
         </section>
+
+        <section className="driver-detail-card driver-commission-card">
+          <div className="driver-detail-card-heading">
+            <BadgePercent size={18} />
+            <div>
+              <h3>{t('driverDetails.commission.title')}</h3>
+              <p>{t('driverDetails.commission.description')}</p>
+            </div>
+          </div>
+
+          <div className="commission-summary-grid">
+            <div><span>{t('commission.grossRevenue')}</span><strong>{formatMoney(commissionTotals.gross)}</strong></div>
+            <div><span>{t('commission.toSettle')}</span><strong>{formatMoney(commissionTotals.pending)}</strong></div>
+            <div><span>{t('commission.driverNet')}</span><strong>{formatMoney(commissionTotals.net)}</strong></div>
+          </div>
+
+          <div className="commission-history-toolbar">
+            <h4 className="commission-history-title">{t('driverDetails.commission.history')}</h4>
+            {canCreateAdministrator(user) && (
+              <button type="button" className="commission-settlement-button" disabled={!pendingCommissions.length} onClick={openSettlement}>
+                <CheckCircle2 size={16} />{t('driverDetails.commission.confirmSettlement')}
+              </button>
+            )}
+          </div>
+          {settlementSuccess && <p className="commission-success" role="status">{t('driverDetails.commission.settlementSuccess')}</p>}
+          {driverCommissions.length === 0 ? (
+            <p className="commission-empty">{t('driverDetails.commission.empty')}</p>
+          ) : (
+            <div className="commission-table-wrap">
+              <table className="commission-table">
+                <thead><tr>
+                  <th>{t('driverDetails.commission.columns.course')}</th>
+                  <th>{t('driverDetails.commission.columns.date')}</th>
+                  <th>{t('driverDetails.commission.columns.route')}</th>
+                  <th>{t('driverDetails.commission.columns.price')}</th>
+                  <th>{t('driverDetails.commission.columns.rate')}</th>
+                  <th>{t('commission.djinaCommission')}</th>
+                  <th>{t('commission.driverNet')}</th>
+                  <th>{t('commission.status')}</th>
+                </tr></thead>
+                <tbody>{driverCommissions.map((commission) => {
+                  const course = completedCourses.find((item) => String(item.id) === String(commission.courseId)) || {}
+                  return <tr key={commission.id}>
+                    <td><button type="button" onClick={() => navigate(`/admin/courses/${commission.courseId}`)}>{formatCourseId(commission.courseId)}</button></td>
+                    <td>{formatDate(course.completed_at || commission.createdAt)}</td>
+                    <td>{course.starting_landmark || t('courses.fallback.departure')} → {course.arrival_landmark || t('courses.fallback.destination')}</td>
+                    <td>{formatMoney(commission.grossAmount)}</td>
+                    <td>{commission.commissionRate}%</td>
+                    <td>{formatMoney(commission.commissionAmount)}</td>
+                    <td><strong>{formatMoney(commission.driverNetAmount)}</strong></td>
+                    <td><span className={`commission-status-badge is-${commission.status}`}>{t(`commission.statuses.${commission.status}`)}</span></td>
+                  </tr>
+                })}</tbody>
+              </table>
+            </div>
+          )}
+        </section>
       </div>
+
+      {settlementOpen && (
+        <div className="commission-modal-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setSettlementOpen(false)}>
+          <section className="commission-modal" role="dialog" aria-modal="true" aria-labelledby="settlement-title">
+            <div className="commission-modal-header">
+              <div><h2 id="settlement-title">{t('driverDetails.settlement.title')}</h2><p>{driverName}</p></div>
+              <button type="button" aria-label={t('driverDetails.settlement.close')} onClick={() => setSettlementOpen(false)}><X size={18} /></button>
+            </div>
+            <form onSubmit={handleSettlement}>
+              <div className="commission-modal-summary">
+                <div><span>{t('driverDetails.settlement.pendingCount')}</span><strong>{selectedCommissions.length}</strong></div>
+                <div><span>{t('driverDetails.settlement.total')}</span><strong>{formatMoney(selectedTotal)}</strong></div>
+              </div>
+              <fieldset className="commission-selection-list">
+                <legend>{t('driverDetails.settlement.courses')}</legend>
+                {pendingCommissions.map((commission) => (
+                  <label key={commission.id}>
+                    <input type="checkbox" checked={selectedCommissionIds.includes(commission.id)} onChange={() => setSelectedCommissionIds((current) => current.includes(commission.id) ? current.filter((id) => id !== commission.id) : [...current, commission.id])} />
+                    <span>{formatCourseId(commission.courseId)}</span><strong>{formatMoney(commission.commissionAmount)}</strong>
+                  </label>
+                ))}
+              </fieldset>
+              <div className="commission-modal-fields">
+                <label><span>{t('driverDetails.settlement.mode')}</span><select value={settlementMode} onChange={(event) => setSettlementMode(event.target.value)}><option value="cash">{t('driverDetails.settlement.modes.cash')}</option><option value="airtel_money">{t('driverDetails.settlement.modes.airtel')}</option><option value="moov_money">{t('driverDetails.settlement.modes.moov')}</option><option value="bank_transfer">{t('driverDetails.settlement.modes.bank')}</option></select></label>
+                <label><span>{t('driverDetails.settlement.reference')}</span><input value={settlementReference} onChange={(event) => setSettlementReference(event.target.value)} /></label>
+                <label><span>{t('driverDetails.settlement.date')}</span><input type="date" value={settlementDate} onChange={(event) => setSettlementDate(event.target.value)} required /></label>
+              </div>
+              <div className="commission-modal-actions">
+                <button type="button" onClick={() => setSettlementOpen(false)}>{t('driverDetails.settlement.cancel')}</button>
+                <button type="submit" disabled={!selectedCommissionIds.length}>{t('driverDetails.settlement.confirm')}</button>
+              </div>
+            </form>
+          </section>
+        </div>
+      )}
     </section>
   )
 }

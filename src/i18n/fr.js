@@ -153,11 +153,32 @@ const fr = {
       version: 'Version',
       environment: 'Environnement',
       development: 'Développement',
+      commission: {
+        title: 'Commission Djina', description: 'Configuration du taux appliqué aux courses terminées.',
+        currentRate: 'Taux actuel', save: 'Enregistrer',
+        note: 'Ce taux est appliqué aux prochaines courses terminées.',
+        saved: 'Le taux de commission a été enregistré.',
+        readOnly: 'Seul un super administrateur peut modifier ce taux.',
+      },
+    },
+
+    commission: {
+      grossRevenue: 'Chiffre d’affaires brut', djinaCommission: 'Commission Djina',
+      driverNet: 'Revenu net chauffeur', coursePrice: 'Prix de la course',
+      rate: 'Taux de commission Djina', rateApplied: 'Taux appliqué', status: 'Statut de la commission',
+      totalGenerated: 'Commission totale générée', toSettle: 'Commission à reverser à Djina', paid: 'Commission versée',
+      paidAt: 'Date du versement', reference: 'Référence du versement',
+      statuses: { pending: 'En attente', paid: 'Versée' },
     },
 
     dashboard: {
       createAdministrator:
         'Créer un administrateur',
+      commission: {
+        gross: 'Volume total des courses', generated: 'Commissions générées', collected: 'Revenus Djina encaissés',
+        pending: 'Commissions en attente', driverNet: 'Revenus nets chauffeurs', aria: 'Indicateurs financiers',
+        note: 'Les revenus Djina correspondent uniquement aux commissions dont le versement a été confirmé.',
+      },
 
       primaryStats: {
         customers: {
@@ -179,9 +200,9 @@ const fr = {
         },
 
         revenue: {
-          title: 'Revenus',
+          title: 'Volume total des courses',
           description:
-            'Paiements encaissés',
+            'Courses terminées',
         },
       },
 
@@ -403,6 +424,10 @@ const fr = {
         final: 'Prix final',
         notDefined: 'Non défini',
       },
+      financial: {
+        title: 'Répartition financière', description: 'Commission Djina et revenu du chauffeur',
+        pending: 'La commission sera générée lorsque la course sera terminée.',
+      },
 
       cancellation: {
         title:
@@ -592,6 +617,18 @@ const fr = {
         active: 'En cours',
         cancelled: 'Annulées',
         latestCourse: 'Dernière course',
+      },
+      commission: {
+        title: 'Revenus et commissions', description: 'Répartition financière des courses terminées',
+        history: 'Historique des commissions', empty: 'Aucune course terminée ne génère encore de commission.',
+        columns: { course: 'Course', date: 'Date', route: 'Trajet', price: 'Prix de la course', rate: 'Taux' },
+        confirmSettlement: 'Confirmer un versement', settlementSuccess: 'Le versement a été confirmé.',
+      },
+      settlement: {
+        title: 'Confirmer un versement', close: 'Fermer', pendingCount: 'Commissions sélectionnées', total: 'Montant total à verser',
+        courses: 'Courses concernées', mode: 'Mode de versement', reference: 'Référence du versement', date: 'Date du versement',
+        confirm: 'Confirmer le versement', cancel: 'Annuler',
+        modes: { cash: 'Espèces', airtel: 'Airtel Money', moov: 'Moov Money', bank: 'Virement' },
       },
     },
 
@@ -974,7 +1011,10 @@ const fr = {
         payment: 'Paiement',
         course: 'Course',
         mode: 'Mode',
-        amount: 'Montant',
+        amount: 'Montant brut',
+        commission: 'Commission',
+        driverNet: 'Net chauffeur',
+        commissionStatus: 'Statut de commission',
         status: 'Statut',
         date: 'Date',
         actions: 'Actions',
@@ -1033,6 +1073,10 @@ const fr = {
           'Informations du paiement',
         description:
           'Détails de la transaction',
+      },
+      split: {
+        title: 'Répartition du paiement', description: 'Montant payé, commission et revenu chauffeur',
+        paidAmount: 'Montant payé',
       },
 
       fields: {

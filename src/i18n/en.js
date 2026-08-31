@@ -153,11 +153,28 @@ const en = {
       version: 'Version',
       environment: 'Environment',
       development: 'Development',
+      commission: {
+        title: 'Djina commission', description: 'Commission rate applied to completed rides.',
+        currentRate: 'Current rate', save: 'Save', note: 'This rate is applied to the next completed rides.',
+        saved: 'The commission rate has been saved.', readOnly: 'Only a super administrator can change this rate.',
+      },
+    },
+
+    commission: {
+      grossRevenue: 'Gross revenue', djinaCommission: 'Djina commission', driverNet: 'Driver net revenue',
+      coursePrice: 'Ride price', rate: 'Djina commission rate', rateApplied: 'Applied rate', status: 'Commission status',
+      totalGenerated: 'Total commission generated', toSettle: 'Commission payable to Djina', paid: 'Commission paid',
+      paidAt: 'Settlement date', reference: 'Settlement reference', statuses: { pending: 'Pending', paid: 'Paid' },
     },
 
     dashboard: {
       createAdministrator:
         'Create administrator',
+      commission: {
+        gross: 'Total ride volume', generated: 'Commissions generated', collected: 'Djina revenue collected',
+        pending: 'Pending commissions', driverNet: 'Driver net revenue', aria: 'Financial indicators',
+        note: 'Djina revenue only includes commissions whose settlement has been confirmed.',
+      },
 
       primaryStats: {
         customers: {
@@ -179,9 +196,9 @@ const en = {
         },
 
         revenue: {
-          title: 'Revenue',
+          title: 'Total ride volume',
           description:
-            'Collected payments',
+            'Completed rides',
         },
       },
 
@@ -402,6 +419,7 @@ const en = {
         final: 'Final price',
         notDefined: 'Not defined',
       },
+      financial: { title: 'Financial breakdown', description: 'Djina commission and driver revenue', pending: 'The commission will be generated when the ride is completed.' },
 
       cancellation: {
         title:
@@ -580,6 +598,18 @@ const en = {
         active: 'In progress',
         cancelled: 'Cancelled',
         latestCourse: 'Latest ride',
+      },
+      commission: {
+        title: 'Revenue and commissions', description: 'Financial breakdown of completed rides',
+        history: 'Commission history', empty: 'No completed ride has generated a commission yet.',
+        columns: { course: 'Ride', date: 'Date', route: 'Route', price: 'Ride price', rate: 'Rate' },
+        confirmSettlement: 'Confirm settlement', settlementSuccess: 'The settlement has been confirmed.',
+      },
+      settlement: {
+        title: 'Confirm settlement', close: 'Close', pendingCount: 'Selected commissions', total: 'Total amount to settle',
+        courses: 'Included rides', mode: 'Settlement method', reference: 'Settlement reference', date: 'Settlement date',
+        confirm: 'Confirm settlement', cancel: 'Cancel',
+        modes: { cash: 'Cash', airtel: 'Airtel Money', moov: 'Moov Money', bank: 'Bank transfer' },
       },
     },
 
@@ -956,7 +986,10 @@ const en = {
         payment: 'Payment',
         course: 'Ride',
         mode: 'Method',
-        amount: 'Amount',
+        amount: 'Gross amount',
+        commission: 'Commission',
+        driverNet: 'Driver net',
+        commissionStatus: 'Commission status',
         status: 'Status',
         date: 'Date',
         actions: 'Actions',
@@ -1015,6 +1048,7 @@ const en = {
         description:
           'Transaction details',
       },
+      split: { title: 'Payment breakdown', description: 'Paid amount, commission and driver revenue', paidAmount: 'Paid amount' },
 
       fields: {
         amount: 'Amount',
