@@ -1921,6 +1921,20 @@ html[data-theme='dark'] .customer-activity-stats strong {
   color: var(--text);
 }
 
+html[data-theme='dark'] .driver-activity-stats > div {
+  color: var(--text);
+  background: #18231d;
+  border-color: var(--border);
+}
+
+html[data-theme='dark'] .driver-activity-stats span {
+  color: var(--text-muted);
+}
+
+html[data-theme='dark'] .driver-activity-stats strong {
+  color: var(--text);
+}
+
 html[data-theme='dark'] .settings-language-option,
 html[data-theme='dark'] .settings-secondary-action,
 html[data-theme='dark'] .settings-appearance-options button,
