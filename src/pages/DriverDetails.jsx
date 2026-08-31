@@ -26,10 +26,8 @@ import { getCourses } from '../services/courseService'
 import Spinner from '../components/Spinner'
 import {
   confirmCommissionSettlement,
-  getCommissionStats,
-  getDriverCommissions,
-  syncCourseCommissions,
-  useCommissionRevision,
+  getCommissions,
+  getCommissionSummary,
 } from '../services/commissionService'
 import { useAuth } from '../context/authContext'
 import { canCreateAdministrator } from '../utils/adminPermissions'
@@ -43,11 +41,13 @@ function DriverDetails() {
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
   const { user } = useAuth()
-  useCommissionRevision()
 
   const [driver, setDriver] = useState(null)
   const [vehicles, setVehicles] = useState([])
   const [courses, setCourses] = useState([])
+  const [driverCommissions, setDriverCommissions] = useState([])
+  const [commissionTotals, setCommissionTotals] = useState({ gross: 0, generated: 0, pending: 0, paid: 0, net: 0 })
+  const [commissionError, setCommissionError] = useState('')
 
   const [isLoading, setIsLoading] = useState(true)
   const [vehiclesLoading, setVehiclesLoading] =
@@ -161,9 +161,27 @@ function DriverDetails() {
     loadVehicles()
   }, [])
 
+  const loadCommissionData = async () => {
+    try {
+      setCommissionError('')
+      const [history, summary] = await Promise.all([
+        getCommissions({ driver: driverId }),
+        getCommissionSummary(driverId),
+      ])
+      setDriverCommissions(history)
+      setCommissionTotals(summary)
+    } catch (requestError) {
+      setCommissionError(
+        requestError?.status === 403
+          ? t('driverDetails.commission.errors.forbidden')
+          : t('driverDetails.commission.errors.load'),
+      )
+    }
+  }
+
   useEffect(() => {
-    if (courses.length) syncCourseCommissions(courses)
-  }, [courses])
+    loadCommissionData()
+  }, [driverId])
 
   useEffect(() => {
     const loadCourses = async () => {
@@ -257,8 +275,6 @@ function DriverDetails() {
         course.status === 'completed',
     )
 
-  const driverCommissions = getDriverCommissions(driver.id)
-  const commissionTotals = getCommissionStats(driverCommissions)
   const pendingCommissions = driverCommissions.filter((item) => item.status === 'pending')
   const selectedCommissions = pendingCommissions.filter((item) => selectedCommissionIds.includes(item.id))
   const selectedTotal = selectedCommissions.reduce((sum, item) => sum + (Number(item.commissionAmount) || 0), 0)
@@ -271,17 +287,29 @@ function DriverDetails() {
     setSettlementOpen(true)
   }
 
-  const handleSettlement = (event) => {
+  const handleSettlement = async (event) => {
     event.preventDefault()
     if (!canCreateAdministrator(user) || selectedCommissionIds.length === 0) return
-    confirmCommissionSettlement(selectedCommissionIds, {
-      settlementMode,
-      settlementReference,
-      paidAt: new Date(`${settlementDate}T12:00:00`).toISOString(),
-    })
-    setSettlementOpen(false)
-    setSettlementSuccess(true)
-    window.setTimeout(() => setSettlementSuccess(false), 3500)
+    try {
+      setCommissionError('')
+      await confirmCommissionSettlement(driver.id, selectedCommissionIds, {
+        settlementMode,
+        settlementReference,
+        paidAt: new Date(`${settlementDate}T12:00:00`).toISOString(),
+      })
+      await loadCommissionData()
+      setSettlementOpen(false)
+      setSettlementSuccess(true)
+      window.setTimeout(() => setSettlementSuccess(false), 3500)
+    } catch (requestError) {
+      setCommissionError(
+        requestError?.status === 403
+          ? t('driverDetails.commission.errors.forbidden')
+          : requestError?.status === 400
+            ? requestError.message
+            : t('driverDetails.commission.errors.settlement'),
+      )
+    }
   }
 
   const cancelledCourses =
@@ -906,6 +934,7 @@ function DriverDetails() {
             )}
           </div>
           {settlementSuccess && <p className="commission-success" role="status">{t('driverDetails.commission.settlementSuccess')}</p>}
+          {commissionError && <p className="payments-action-error" role="alert">{commissionError}</p>}
           {driverCommissions.length === 0 ? (
             <p className="commission-empty">{t('driverDetails.commission.empty')}</p>
           ) : (
@@ -926,7 +955,7 @@ function DriverDetails() {
                   return <tr key={commission.id}>
                     <td><button type="button" onClick={() => navigate(`/admin/courses/${commission.courseId}`)}>{formatCourseId(commission.courseId)}</button></td>
                     <td>{formatDate(course.completed_at || commission.createdAt)}</td>
-                    <td>{course.starting_landmark || t('courses.fallback.departure')} → {course.arrival_landmark || t('courses.fallback.destination')}</td>
+                    <td>{commission.startingLandmark || course.starting_landmark || t('courses.fallback.departure')} → {commission.arrivalLandmark || course.arrival_landmark || t('courses.fallback.destination')}</td>
                     <td>{formatMoney(commission.grossAmount)}</td>
                     <td>{commission.commissionRate}%</td>
                     <td>{formatMoney(commission.commissionAmount)}</td>

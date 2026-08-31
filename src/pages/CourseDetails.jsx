@@ -25,8 +25,6 @@ import {
 import Spinner from '../components/Spinner'
 import {
   getCommissionByCourseId,
-  syncCourseCommissions,
-  useCommissionRevision,
 } from '../services/commissionService'
 
 function formatCourseId(id) {
@@ -37,9 +35,10 @@ function CourseDetails() {
   const { courseId } = useParams()
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
-  useCommissionRevision()
 
   const [course, setCourse] = useState(null)
+  const [courseCommission, setCourseCommission] = useState(null)
+  const [commissionError, setCommissionError] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -119,7 +118,19 @@ function CourseDetails() {
   }, [courseId, t])
 
   useEffect(() => {
-    if (course) syncCourseCommissions([course])
+    if (!course || course.status !== 'completed') return
+    getCommissionByCourseId(course.id)
+      .then((commission) => {
+        setCourseCommission(commission)
+        if (!commission) setCommissionError(t('courseDetails.financial.unavailable'))
+      })
+      .catch((requestError) => {
+        setCommissionError(
+          requestError?.status === 403
+            ? t('courseDetails.financial.forbidden')
+            : t('courseDetails.financial.loadError'),
+        )
+      })
   }, [course])
 
   const timeline = useMemo(() => {
@@ -193,8 +204,6 @@ function CourseDetails() {
       </section>
     )
   }
-
-  const courseCommission = getCommissionByCourseId(course.id)
 
   const customerName =
     [
@@ -687,7 +696,7 @@ function CourseDetails() {
             </div>
           </div>
 
-          {course.status === 'completed' ? (
+          {course.status === 'completed' && courseCommission ? (
             <div className="course-detail-list financial-detail-list">
               <div><span>{t('commission.coursePrice')}</span><strong>{formatMoney(courseCommission?.grossAmount)}</strong></div>
               <div><span>{t('commission.rateApplied')}</span><strong>{courseCommission?.commissionRate ?? 0}%</strong></div>
@@ -695,8 +704,10 @@ function CourseDetails() {
               <div><span>{t('commission.driverNet')}</span><strong>{formatMoney(courseCommission?.driverNetAmount)}</strong></div>
               <div><span>{t('commission.status')}</span><strong className={`commission-status-badge is-${courseCommission?.status || 'pending'}`}>{t(`commission.statuses.${courseCommission?.status || 'pending'}`)}</strong></div>
             </div>
-          ) : (
+          ) : course.status !== 'completed' ? (
             <p className="commission-pending-note">{t('courseDetails.financial.pending')}</p>
+          ) : (
+            <p className="commission-pending-note">{commissionError || t('courseDetails.financial.unavailable')}</p>
           )}
         </section>
       </div>

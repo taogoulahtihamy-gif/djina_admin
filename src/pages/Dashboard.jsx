@@ -71,10 +71,7 @@ import PendingActions from '../components/dashboard/PendingActions'
 import RecentCourses from '../components/dashboard/RecentCourses'
 import StatCard from '../components/dashboard/StatCard'
 import {
-  getCommissions,
-  getCommissionStats,
-  syncCourseCommissions,
-  useCommissionRevision,
+  getCommissionDashboardStats,
 } from '../services/commissionService'
 
 
@@ -139,7 +136,6 @@ function isWithinPeriod(
 
 
 function Dashboard() {
-  useCommissionRevision()
   const {
     user,
   } = useAuth()
@@ -216,6 +212,8 @@ function Dashboard() {
     complaints,
     setComplaints,
   ] = useState([])
+
+  const [commissionTotals, setCommissionTotals] = useState({ gross: 0, generated: 0, paid: 0, pending: 0, net: 0 })
 
 
   /* =====================================================
@@ -439,6 +437,7 @@ function Dashboard() {
             paymentsData,
             documentsData,
             complaintsData,
+            commissionStatsData,
           ] =
             await Promise.all([
               getCourses(),
@@ -447,6 +446,7 @@ function Dashboard() {
               getPayments(),
               getDriverDocuments(),
               getComplaints(),
+              getCommissionDashboardStats(),
             ])
 
 
@@ -485,6 +485,7 @@ function Dashboard() {
               complaintsData,
             ),
           )
+          setCommissionTotals(commissionStatsData)
         } catch (err) {
           console.error(
             'Dashboard loading error:',
@@ -629,10 +630,6 @@ function Dashboard() {
     )
 
 
-  useEffect(() => {
-    if (courses.length) syncCourseCommissions(courses)
-  }, [courses])
-
 
   /* =====================================================
      STATISTIQUES ACTUELLES
@@ -692,10 +689,6 @@ function Dashboard() {
      REVENUS
   ===================================================== */
 
-  const filteredCourseIds = new Set(filteredCourses.map((course) => String(course.id)))
-  const commissionTotals = getCommissionStats(
-    getCommissions().filter((commission) => filteredCourseIds.has(String(commission.courseId))),
-  )
   /* =====================================================
      CARTES PRINCIPALES
   ===================================================== */

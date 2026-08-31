@@ -159,6 +159,7 @@ const fr = {
         note: 'Ce taux est appliqué aux prochaines courses terminées.',
         saved: 'Le taux de commission a été enregistré.',
         readOnly: 'Seul un super administrateur peut modifier ce taux.',
+        loadError: 'Impossible de charger le taux de commission.', saveError: 'Impossible d’enregistrer le taux.', forbidden: 'Seul un super administrateur peut modifier ce taux.',
       },
     },
 
@@ -427,6 +428,7 @@ const fr = {
       financial: {
         title: 'Répartition financière', description: 'Commission Djina et revenu du chauffeur',
         pending: 'La commission sera générée lorsque la course sera terminée.',
+        unavailable: 'Aucune commission n’est encore disponible pour cette course.', loadError: 'Impossible de charger la commission.', forbidden: 'Accès réservé aux administrateurs.',
       },
 
       cancellation: {
@@ -623,6 +625,7 @@ const fr = {
         history: 'Historique des commissions', empty: 'Aucune course terminée ne génère encore de commission.',
         columns: { course: 'Course', date: 'Date', route: 'Trajet', price: 'Prix de la course', rate: 'Taux' },
         confirmSettlement: 'Confirmer un versement', settlementSuccess: 'Le versement a été confirmé.',
+        errors: { load: 'Impossible de charger les commissions.', settlement: 'Impossible de confirmer le versement.', forbidden: 'Action réservée au super administrateur.' },
       },
       settlement: {
         title: 'Confirmer un versement', close: 'Fermer', pendingCount: 'Commissions sélectionnées', total: 'Montant total à verser',
@@ -1046,6 +1049,7 @@ const fr = {
       processed: 'Traité',
       viewPayment:
         'Voir le paiement #{{id}}',
+      commissionErrors: { load: 'Impossible de charger les commissions.', forbidden: 'Accès réservé aux administrateurs.' },
     },
 
     paymentDetails: {
@@ -1077,6 +1081,7 @@ const fr = {
       split: {
         title: 'Répartition du paiement', description: 'Montant payé, commission et revenu chauffeur',
         paidAmount: 'Montant payé',
+        loadError: 'Impossible de charger la répartition de commission.', forbidden: 'Accès réservé aux administrateurs.',
       },
 
       fields: {

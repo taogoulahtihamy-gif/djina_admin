@@ -157,6 +157,7 @@ const en = {
         title: 'Djina commission', description: 'Commission rate applied to completed rides.',
         currentRate: 'Current rate', save: 'Save', note: 'This rate is applied to the next completed rides.',
         saved: 'The commission rate has been saved.', readOnly: 'Only a super administrator can change this rate.',
+        loadError: 'Unable to load the commission rate.', saveError: 'Unable to save the commission rate.', forbidden: 'Only a super administrator can change this rate.',
       },
     },
 
@@ -419,7 +420,7 @@ const en = {
         final: 'Final price',
         notDefined: 'Not defined',
       },
-      financial: { title: 'Financial breakdown', description: 'Djina commission and driver revenue', pending: 'The commission will be generated when the ride is completed.' },
+      financial: { title: 'Financial breakdown', description: 'Djina commission and driver revenue', pending: 'The commission will be generated when the ride is completed.', unavailable: 'No commission is available for this ride yet.', loadError: 'Unable to load the commission.', forbidden: 'Administrator access required.' },
 
       cancellation: {
         title:
@@ -604,6 +605,7 @@ const en = {
         history: 'Commission history', empty: 'No completed ride has generated a commission yet.',
         columns: { course: 'Ride', date: 'Date', route: 'Route', price: 'Ride price', rate: 'Rate' },
         confirmSettlement: 'Confirm settlement', settlementSuccess: 'The settlement has been confirmed.',
+        errors: { load: 'Unable to load commissions.', settlement: 'Unable to confirm the settlement.', forbidden: 'This action is restricted to super administrators.' },
       },
       settlement: {
         title: 'Confirm settlement', close: 'Close', pendingCount: 'Selected commissions', total: 'Total amount to settle',
@@ -1021,6 +1023,7 @@ const en = {
       processed: 'Processed',
       viewPayment:
         'View payment #{{id}}',
+      commissionErrors: { load: 'Unable to load commissions.', forbidden: 'Administrator access required.' },
     },
 
     paymentDetails: {
@@ -1048,7 +1051,7 @@ const en = {
         description:
           'Transaction details',
       },
-      split: { title: 'Payment breakdown', description: 'Paid amount, commission and driver revenue', paidAmount: 'Paid amount' },
+      split: { title: 'Payment breakdown', description: 'Paid amount, commission and driver revenue', paidAmount: 'Paid amount', loadError: 'Unable to load the commission breakdown.', forbidden: 'Administrator access required.' },
 
       fields: {
         amount: 'Amount',

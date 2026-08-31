@@ -51,8 +51,9 @@ import {
   getAppearance,
 } from '../services/themeService'
 import {
-  saveCommissionRate,
-  useCommissionRate,
+  DEFAULT_COMMISSION_RATE,
+  getCurrentCommissionSetting,
+  updateCommissionRate,
 } from '../services/commissionService'
 import { canCreateAdministrator } from '../utils/adminPermissions'
 
@@ -150,13 +151,17 @@ function Settings() {
     logout,
   } = useAuth()
 
-  const commissionRate = useCommissionRate()
-  const [commissionInput, setCommissionInput] = useState(commissionRate)
+  const [commissionInput, setCommissionInput] = useState(DEFAULT_COMMISSION_RATE)
   const [commissionSaved, setCommissionSaved] = useState(false)
+  const [commissionLoading, setCommissionLoading] = useState(true)
+  const [commissionError, setCommissionError] = useState('')
 
   useEffect(() => {
-    setCommissionInput(commissionRate)
-  }, [commissionRate])
+    getCurrentCommissionSetting()
+      .then((setting) => setCommissionInput(setting.rate))
+      .catch(() => setCommissionError(t('settings.commission.loadError')))
+      .finally(() => setCommissionLoading(false))
+  }, [t])
 
 
   /* =====================================================
@@ -894,12 +899,20 @@ function Settings() {
      RENDU
   ===================================================== */
 
-  const handleCommissionSave = (event) => {
+  const handleCommissionSave = async (event) => {
     event.preventDefault()
-    const savedRate = saveCommissionRate(commissionInput)
-    setCommissionInput(savedRate)
-    setCommissionSaved(true)
-    window.setTimeout(() => setCommissionSaved(false), 3000)
+    try {
+      setCommissionLoading(true)
+      setCommissionError('')
+      const setting = await updateCommissionRate(commissionInput)
+      setCommissionInput(setting.rate)
+      setCommissionSaved(true)
+      window.setTimeout(() => setCommissionSaved(false), 3000)
+    } catch (error) {
+      setCommissionError(error?.status === 403 ? t('settings.commission.forbidden') : t('settings.commission.saveError'))
+    } finally {
+      setCommissionLoading(false)
+    }
   }
 
   return (
@@ -1024,7 +1037,7 @@ function Settings() {
                   max="100"
                   step="0.01"
                   value={commissionInput}
-                  disabled={!isSuperAdmin}
+                  disabled={!isSuperAdmin || commissionLoading}
                   onChange={(event) => {
                     setCommissionInput(event.target.value)
                     setCommissionSaved(false)
@@ -1035,7 +1048,7 @@ function Settings() {
             </label>
 
             {isSuperAdmin && (
-              <button type="submit" className="settings-commission-save">
+              <button type="submit" className="settings-commission-save" disabled={commissionLoading}>
                 <Check size={16} aria-hidden="true" />
                 {t('settings.commission.save')}
               </button>
@@ -1055,6 +1068,7 @@ function Settings() {
               {t('settings.commission.saved')}
             </p>
           )}
+          {commissionError && <p className="settings-notification-error" role="alert">{commissionError}</p>}
         </section>
 
 

@@ -157,6 +157,7 @@ const ar = {
         title: 'عمولة جينا', description: 'إعداد نسبة العمولة المطبقة على الرحلات المكتملة.',
         currentRate: 'النسبة الحالية', save: 'حفظ', note: 'تُطبق هذه النسبة على الرحلات المكتملة القادمة.',
         saved: 'تم حفظ نسبة العمولة.', readOnly: 'يمكن للمسؤول الأعلى فقط تعديل هذه النسبة.',
+        loadError: 'تعذر تحميل نسبة العمولة.', saveError: 'تعذر حفظ نسبة العمولة.', forbidden: 'يمكن للمسؤول الأعلى فقط تعديل هذه النسبة.',
       },
     },
 
@@ -419,7 +420,7 @@ const ar = {
         final: 'السعر النهائي',
         notDefined: 'غير محدد',
       },
-      financial: { title: 'التوزيع المالي', description: 'عمولة جينا ودخل السائق', pending: 'سيتم إنشاء العمولة عند اكتمال الرحلة.' },
+      financial: { title: 'التوزيع المالي', description: 'عمولة جينا ودخل السائق', pending: 'سيتم إنشاء العمولة عند اكتمال الرحلة.', unavailable: 'لا توجد عمولة متاحة لهذه الرحلة بعد.', loadError: 'تعذر تحميل العمولة.', forbidden: 'يلزم وصول المسؤول.' },
 
       cancellation: {
         title: 'معلومات الإلغاء',
@@ -607,6 +608,7 @@ const ar = {
         history: 'سجل العمولات', empty: 'لم تنتج أي رحلة مكتملة عمولة بعد.',
         columns: { course: 'الرحلة', date: 'التاريخ', route: 'المسار', price: 'سعر الرحلة', rate: 'النسبة' },
         confirmSettlement: 'تأكيد الدفع', settlementSuccess: 'تم تأكيد الدفع.',
+        errors: { load: 'تعذر تحميل العمولات.', settlement: 'تعذر تأكيد الدفع.', forbidden: 'هذا الإجراء مخصص للمسؤول الأعلى.' },
       },
       settlement: {
         title: 'تأكيد الدفع', close: 'إغلاق', pendingCount: 'العمولات المحددة', total: 'إجمالي المبلغ المستحق',
@@ -1024,6 +1026,7 @@ const ar = {
       processed: 'تمت المعالجة',
       viewPayment:
         'عرض الدفع #{{id}}',
+      commissionErrors: { load: 'تعذر تحميل العمولات.', forbidden: 'يلزم وصول المسؤول.' },
     },
 
     paymentDetails: {
@@ -1052,7 +1055,7 @@ const ar = {
         description:
           'تفاصيل المعاملة',
       },
-      split: { title: 'توزيع الدفع', description: 'المبلغ المدفوع والعمولة ودخل السائق', paidAmount: 'المبلغ المدفوع' },
+      split: { title: 'توزيع الدفع', description: 'المبلغ المدفوع والعمولة ودخل السائق', paidAmount: 'المبلغ المدفوع', loadError: 'تعذر تحميل توزيع العمولة.', forbidden: 'يلزم وصول المسؤول.' },
 
       fields: {
         amount: 'المبلغ',
