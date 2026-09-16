@@ -33,6 +33,7 @@ import Vehicles from './pages/Vehicles'
 import VehicleDetails from './pages/VehicleDetails'
 
 import Payments from './pages/Payments'
+import MobileMoneyEvents from './pages/MobileMoneyEvents'
 import PaymentDetails from './pages/PaymentDetails'
 
 import Complaints from './pages/Complaints'
@@ -125,6 +126,11 @@ function App() {
             <Route
               path="payments"
               element={<Payments />}
+            />
+
+            <Route
+              path="mobile-money-events"
+              element={<MobileMoneyEvents />}
             />
 
             <Route

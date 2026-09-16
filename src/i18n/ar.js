@@ -8,6 +8,7 @@ const ar = {
       customers: 'العملاء',
       vehicles: 'المركبات',
       payments: 'المدفوعات',
+      mobileMoneyEvents: 'أحداث الأموال عبر الهاتف',
       complaints: 'الشكاوى',
       settings: 'الإعدادات',
       myProfile: 'ملفي الشخصي',
@@ -63,6 +64,13 @@ const ar = {
         title: 'المدفوعات',
         description:
           'تابع المدفوعات والتحصيل وحالات الدفع على Djina.',
+      },
+
+      mobileMoneyEvents: {
+        eyebrow: 'المالية',
+        title: 'أحداث الأموال عبر الهاتف',
+        description:
+          'راقب إشعارات Airtel Money وMoov Money وكيفية معالجتها داخل Djina.',
       },
 
       complaints: {
@@ -943,6 +951,104 @@ const ar = {
         none: 'لا توجد صورة',
         noneDescription:
           'لم يتم تسجيل صورة لهذه المركبة بعد.',
+      },
+    },
+
+    mobileMoneyEvents: {
+      refresh: 'تحديث',
+      retry: 'إعادة المحاولة',
+      view: 'عرض التفاصيل',
+      summary: { label: 'الأحداث المسجلة' },
+
+      filters: {
+        title: 'عوامل التصفية',
+        provider: 'المشغل',
+        outcome: 'نتيجة المعالجة',
+        callbackStatus: 'حالة الإشعار',
+        processed: 'تمت المعالجة',
+        reference: 'مرجع المشغل',
+        referencePlaceholder: 'مثال: معاملة المشغل',
+        from: 'من',
+        to: 'إلى',
+        all: 'الكل',
+        apply: 'تطبيق',
+        reset: 'إعادة ضبط',
+      },
+
+      providers: {
+        airtel_money: 'Airtel Money',
+        moov_money: 'Moov Money',
+        other: 'أخرى',
+      },
+
+      outcomes: {
+        received: 'مستلم',
+        accepted: 'مقبول',
+        rejected: 'مرفوض',
+      },
+
+      callbackStatuses: {
+        success: 'ناجح',
+        failed: 'فشل',
+      },
+
+      boolean: {
+        yes: 'نعم',
+        no: 'لا',
+        unknown: 'غير معروف',
+      },
+
+      list: {
+        title: 'سجل المشغل',
+        count: '{{count}} حدث',
+      },
+
+      table: {
+        date: 'التاريخ',
+        provider: 'المشغل',
+        reference: 'المرجع',
+        callback: 'الإشعار',
+        outcome: 'المعالجة',
+        amount: 'المبلغ',
+        processed: 'تمت المعالجة',
+        actions: 'الإجراءات',
+      },
+
+      pagination: {
+        page: 'الصفحة {{page}} من {{pages}}',
+        previous: 'السابق',
+        next: 'التالي',
+        pageSize: 'لكل صفحة',
+      },
+
+      details: {
+        eyebrow: 'السجل التقني',
+        title: 'تفاصيل الحدث',
+        close: 'إغلاق',
+        eventId: 'الحدث',
+        topup: 'إعادة الشحن المرتبطة',
+        reportedTopup: 'إعادة الشحن المبلغ عنها',
+        provider: 'المشغل',
+        reference: 'مرجع المشغل',
+        providerStatus: 'حالة المشغل',
+        amount: 'المبلغ',
+        processed: 'تمت المعالجة',
+        transaction: 'معاملة المحفظة',
+        createdAt: 'وقت الاستلام',
+        completedAt: 'وقت المعالجة',
+        failureReason: 'سبب الفشل',
+      },
+
+      empty: {
+        title: 'لا توجد أحداث',
+        description:
+          'لا توجد إشعارات Mobile Money مطابقة لعوامل التصفية المحددة.',
+      },
+
+      errors: {
+        title: 'تعذر التحميل',
+        load: 'تعذر تحميل سجل Mobile Money.',
+        forbidden: 'هذه الشاشة مخصصة للمسؤولين فقط.',
       },
     },
 

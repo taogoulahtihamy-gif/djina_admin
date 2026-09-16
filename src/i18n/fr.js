@@ -8,6 +8,7 @@ const fr = {
       customers: 'Clients',
       vehicles: 'Véhicules',
       payments: 'Paiements',
+      mobileMoneyEvents: 'Événements Mobile Money',
       complaints: 'Réclamations',
       settings: 'Paramètres',
       myProfile: 'Mon profil',
@@ -63,6 +64,13 @@ const fr = {
         title: 'Paiements',
         description:
           'Suivez les paiements, les encaissements et leur état sur Djina.',
+      },
+
+      mobileMoneyEvents: {
+        eyebrow: 'Finance',
+        title: 'Événements Mobile Money',
+        description:
+          'Surveillez les callbacks Airtel Money, Moov Money et leur traitement par Djina.',
       },
 
       complaints: {
@@ -968,6 +976,104 @@ const fr = {
         none: 'Aucune photo',
         noneDescription:
           'Aucune image n’a encore été enregistrée pour ce véhicule.',
+      },
+    },
+
+    mobileMoneyEvents: {
+      refresh: 'Actualiser',
+      retry: 'Réessayer',
+      view: 'Voir le détail',
+      summary: { label: 'Événements enregistrés' },
+
+      filters: {
+        title: 'Filtres',
+        provider: 'Opérateur',
+        outcome: 'Traitement',
+        callbackStatus: 'Statut callback',
+        processed: 'Traité',
+        reference: 'Référence fournisseur',
+        referencePlaceholder: 'Ex. transaction opérateur',
+        from: 'Du',
+        to: 'Au',
+        all: 'Tous',
+        apply: 'Appliquer',
+        reset: 'Réinitialiser',
+      },
+
+      providers: {
+        airtel_money: 'Airtel Money',
+        moov_money: 'Moov Money',
+        other: 'Autre',
+      },
+
+      outcomes: {
+        received: 'Reçu',
+        accepted: 'Accepté',
+        rejected: 'Rejeté',
+      },
+
+      callbackStatuses: {
+        success: 'Succès',
+        failed: 'Échec',
+      },
+
+      boolean: {
+        yes: 'Oui',
+        no: 'Non',
+        unknown: 'Inconnu',
+      },
+
+      list: {
+        title: 'Journal fournisseur',
+        count: '{{count}} événement(s)',
+      },
+
+      table: {
+        date: 'Date',
+        provider: 'Opérateur',
+        reference: 'Référence',
+        callback: 'Callback',
+        outcome: 'Traitement',
+        amount: 'Montant',
+        processed: 'Traité',
+        actions: 'Actions',
+      },
+
+      pagination: {
+        page: 'Page {{page}} sur {{pages}}',
+        previous: 'Précédent',
+        next: 'Suivant',
+        pageSize: 'Par page',
+      },
+
+      details: {
+        eyebrow: 'Journal technique',
+        title: 'Détail de l’événement',
+        close: 'Fermer',
+        eventId: 'Événement',
+        topup: 'Recharge liée',
+        reportedTopup: 'Recharge déclarée',
+        provider: 'Opérateur',
+        reference: 'Référence fournisseur',
+        providerStatus: 'Statut fournisseur',
+        amount: 'Montant',
+        processed: 'Traité',
+        transaction: 'Transaction wallet',
+        createdAt: 'Reçu le',
+        completedAt: 'Traité le',
+        failureReason: 'Motif d’échec',
+      },
+
+      empty: {
+        title: 'Aucun événement',
+        description:
+          'Aucun callback Mobile Money ne correspond aux filtres sélectionnés.',
+      },
+
+      errors: {
+        title: 'Chargement impossible',
+        load: 'Impossible de charger le journal Mobile Money.',
+        forbidden: 'Cet écran est réservé aux administrateurs.',
       },
     },
 

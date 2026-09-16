@@ -8,6 +8,7 @@ const en = {
       customers: 'Customers',
       vehicles: 'Vehicles',
       payments: 'Payments',
+      mobileMoneyEvents: 'Mobile Money events',
       complaints: 'Complaints',
       settings: 'Settings',
       myProfile: 'My profile',
@@ -63,6 +64,13 @@ const en = {
         title: 'Payments',
         description:
           'Monitor payments, collections and their status on Djina.',
+      },
+
+      mobileMoneyEvents: {
+        eyebrow: 'Finance',
+        title: 'Mobile Money events',
+        description:
+          'Monitor Airtel Money and Moov Money callbacks and how Djina processes them.',
       },
 
       complaints: {
@@ -942,6 +950,104 @@ const en = {
         none: 'No photo',
         noneDescription:
           'No image has been registered for this vehicle yet.',
+      },
+    },
+
+    mobileMoneyEvents: {
+      refresh: 'Refresh',
+      retry: 'Retry',
+      view: 'View details',
+      summary: { label: 'Recorded events' },
+
+      filters: {
+        title: 'Filters',
+        provider: 'Provider',
+        outcome: 'Outcome',
+        callbackStatus: 'Callback status',
+        processed: 'Processed',
+        reference: 'Provider reference',
+        referencePlaceholder: 'e.g. provider transaction',
+        from: 'From',
+        to: 'To',
+        all: 'All',
+        apply: 'Apply',
+        reset: 'Reset',
+      },
+
+      providers: {
+        airtel_money: 'Airtel Money',
+        moov_money: 'Moov Money',
+        other: 'Other',
+      },
+
+      outcomes: {
+        received: 'Received',
+        accepted: 'Accepted',
+        rejected: 'Rejected',
+      },
+
+      callbackStatuses: {
+        success: 'Success',
+        failed: 'Failed',
+      },
+
+      boolean: {
+        yes: 'Yes',
+        no: 'No',
+        unknown: 'Unknown',
+      },
+
+      list: {
+        title: 'Provider journal',
+        count: '{{count}} event(s)',
+      },
+
+      table: {
+        date: 'Date',
+        provider: 'Provider',
+        reference: 'Reference',
+        callback: 'Callback',
+        outcome: 'Outcome',
+        amount: 'Amount',
+        processed: 'Processed',
+        actions: 'Actions',
+      },
+
+      pagination: {
+        page: 'Page {{page}} of {{pages}}',
+        previous: 'Previous',
+        next: 'Next',
+        pageSize: 'Per page',
+      },
+
+      details: {
+        eyebrow: 'Technical journal',
+        title: 'Event details',
+        close: 'Close',
+        eventId: 'Event',
+        topup: 'Linked top-up',
+        reportedTopup: 'Reported top-up',
+        provider: 'Provider',
+        reference: 'Provider reference',
+        providerStatus: 'Provider status',
+        amount: 'Amount',
+        processed: 'Processed',
+        transaction: 'Wallet transaction',
+        createdAt: 'Received at',
+        completedAt: 'Processed at',
+        failureReason: 'Failure reason',
+      },
+
+      empty: {
+        title: 'No events',
+        description:
+          'No Mobile Money callback matches the selected filters.',
+      },
+
+      errors: {
+        title: 'Unable to load',
+        load: 'Unable to load the Mobile Money journal.',
+        forbidden: 'This screen is restricted to administrators.',
       },
     },
 

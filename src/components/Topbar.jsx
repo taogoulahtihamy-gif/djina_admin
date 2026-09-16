@@ -244,6 +244,11 @@ function Topbar({
       '/admin/payments',
     )
 
+  const isMobileMoneyEventsPage =
+    location.pathname.startsWith(
+      '/admin/mobile-money-events',
+    )
+
   const isComplaintsPage =
     location.pathname.startsWith(
       '/admin/complaints',
@@ -974,7 +979,27 @@ function Topbar({
                   )}
                 </p>
               </>
-            ) : isPaymentsPage ? (
+            ) : isMobileMoneyEventsPage ? (
+            <>
+              <span className="topbar-eyebrow">
+                {t(
+                  'topbar.mobileMoneyEvents.eyebrow',
+                )}
+              </span>
+
+              <h1>
+                {t(
+                  'topbar.mobileMoneyEvents.title',
+                )}
+              </h1>
+
+              <p>
+                {t(
+                  'topbar.mobileMoneyEvents.description',
+                )}
+              </p>
+            </>
+          ) : isPaymentsPage ? (
               <>
                 <span className="topbar-eyebrow">
                   {t(

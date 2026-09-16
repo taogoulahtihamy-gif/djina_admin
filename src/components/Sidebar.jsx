@@ -25,6 +25,7 @@ import {
   Settings,
   Users,
   X,
+  RadioTower,
 } from 'lucide-react'
 
 import {
@@ -95,6 +96,15 @@ const menuItems = [
     path:
       '/admin/payments',
   },
+  {
+    labelKey:
+      'common.mobileMoneyEvents',
+    icon:
+      RadioTower,
+    path:
+      '/admin/mobile-money-events',
+  },
+
   {
     labelKey:
       'common.complaints',
